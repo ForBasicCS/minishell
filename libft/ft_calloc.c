@@ -1,41 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/23 16:41:40 by hynam             #+#    #+#             */
-/*   Updated: 2021/09/24 16:19:26 by hynam            ###   ########.fr       */
+/*   Created: 2020/12/21 14:43:33 by hynam             #+#    #+#             */
+/*   Updated: 2020/12/23 15:14:50 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(void)
+void	*ft_calloc(size_t n, size_t size)
 {
-	int		status;
-	pid_t	pid;
-	char	*str;
+	void	*ptr;
 
-	str = NULL;
-	status = 0;
-	while (1)
+	if (n == 0 || size == 0)
 	{
-		str = readline("> ");
-		if (ft_strncmp(str, "exit", 4) == 0)
-			break;
-		pid = fork();
-		if (pid == 0)
-		{
-			if (ft_strncmp(str, "pwd") == 0)
-				printf("%s\n", getcwd(NULL, 100));
-			exit(3);
-		}
-		waitpid(pid, &status, 0);
-		add_history(str);
-		free(str);
+		n = 1;
+		size = 1;
 	}
-	printf("%d\n", status);
-	return (0);
+	ptr = malloc(n * size);
+	if (ptr)
+		ft_bzero(ptr, n * size);
+	return (ptr);
 }

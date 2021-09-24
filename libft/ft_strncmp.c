@@ -1,41 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/23 16:41:40 by hynam             #+#    #+#             */
-/*   Updated: 2021/09/24 16:19:26 by hynam            ###   ########.fr       */
+/*   Created: 2020/12/21 13:39:35 by hynam             #+#    #+#             */
+/*   Updated: 2020/12/24 16:15:12 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(void)
+int	ft_strncmp(char const *s1, char const *s2, size_t n)
 {
-	int		status;
-	pid_t	pid;
-	char	*str;
-
-	str = NULL;
-	status = 0;
-	while (1)
+	if (n == 0)
+		return (0);
+	while (n && *s1 && *s2)
 	{
-		str = readline("> ");
-		if (ft_strncmp(str, "exit", 4) == 0)
-			break;
-		pid = fork();
-		if (pid == 0)
-		{
-			if (ft_strncmp(str, "pwd") == 0)
-				printf("%s\n", getcwd(NULL, 100));
-			exit(3);
-		}
-		waitpid(pid, &status, 0);
-		add_history(str);
-		free(str);
+		if (*(unsigned char *)s1 != *(unsigned char *)s2)
+			break ;
+		s1++;
+		s2++;
+		n--;
 	}
-	printf("%d\n", status);
+	if (n != 0)
+		return (*(unsigned char *)s1 - *(unsigned char *)s2);
 	return (0);
 }

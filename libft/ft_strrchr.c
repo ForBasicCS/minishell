@@ -1,41 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/23 16:41:40 by hynam             #+#    #+#             */
-/*   Updated: 2021/09/24 16:19:26 by hynam            ###   ########.fr       */
+/*   Created: 2020/12/21 13:19:58 by hynam             #+#    #+#             */
+/*   Updated: 2020/12/25 15:39:37 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(void)
+char	*ft_strrchr(const char *s, int c)
 {
-	int		status;
-	pid_t	pid;
-	char	*str;
+	size_t	i;
 
-	str = NULL;
-	status = 0;
-	while (1)
+	c = (char)c;
+	i = ft_strlen(s);
+	while (i > 0)
 	{
-		str = readline("> ");
-		if (ft_strncmp(str, "exit", 4) == 0)
-			break;
-		pid = fork();
-		if (pid == 0)
-		{
-			if (ft_strncmp(str, "pwd") == 0)
-				printf("%s\n", getcwd(NULL, 100));
-			exit(3);
-		}
-		waitpid(pid, &status, 0);
-		add_history(str);
-		free(str);
+		if (s[i] == c)
+			return ((char *)(s + i));
+		i--;
 	}
-	printf("%d\n", status);
+	if (s[i] == c)
+		return ((char *)s);
 	return (0);
 }

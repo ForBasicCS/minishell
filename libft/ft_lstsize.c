@@ -1,41 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/23 16:41:40 by hynam             #+#    #+#             */
-/*   Updated: 2021/09/24 16:19:26 by hynam            ###   ########.fr       */
+/*   Created: 2020/12/24 14:15:56 by hynam             #+#    #+#             */
+/*   Updated: 2020/12/24 14:59:39 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(void)
+int	ft_lstsize(t_list *lst)
 {
-	int		status;
-	pid_t	pid;
-	char	*str;
+	int	i;
 
-	str = NULL;
-	status = 0;
-	while (1)
+	i = 0;
+	while (lst)
 	{
-		str = readline("> ");
-		if (ft_strncmp(str, "exit", 4) == 0)
-			break;
-		pid = fork();
-		if (pid == 0)
-		{
-			if (ft_strncmp(str, "pwd") == 0)
-				printf("%s\n", getcwd(NULL, 100));
-			exit(3);
-		}
-		waitpid(pid, &status, 0);
-		add_history(str);
-		free(str);
+		i++;
+		lst = lst->next;
 	}
-	printf("%d\n", status);
-	return (0);
+	return (i);
 }

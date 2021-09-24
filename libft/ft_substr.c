@@ -1,41 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/23 16:41:40 by hynam             #+#    #+#             */
-/*   Updated: 2021/09/24 16:19:26 by hynam            ###   ########.fr       */
+/*   Created: 2020/12/22 14:39:26 by hynam             #+#    #+#             */
+/*   Updated: 2020/12/25 15:31:01 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(void)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	int		status;
-	pid_t	pid;
-	char	*str;
+	size_t	i;
+	size_t	n;
+	char	*tmp;
 
-	str = NULL;
-	status = 0;
-	while (1)
+	i = start;
+	n = 0;
+	if (!s)
+		return (0);
+	if (ft_strlen(s) < start)
+		return (ft_strdup(""));
+	tmp = (char *)malloc(sizeof(char) * len + 1);
+	if (!tmp)
+		return (0);
+	while (s[i] && n < len)
 	{
-		str = readline("> ");
-		if (ft_strncmp(str, "exit", 4) == 0)
-			break;
-		pid = fork();
-		if (pid == 0)
-		{
-			if (ft_strncmp(str, "pwd") == 0)
-				printf("%s\n", getcwd(NULL, 100));
-			exit(3);
-		}
-		waitpid(pid, &status, 0);
-		add_history(str);
-		free(str);
+		tmp[n] = s[i];
+		n++;
+		i++;
 	}
-	printf("%d\n", status);
-	return (0);
+	tmp[n] = 0;
+	return (tmp);
 }

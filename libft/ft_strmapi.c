@@ -1,41 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/23 16:41:40 by hynam             #+#    #+#             */
-/*   Updated: 2021/09/24 16:19:26 by hynam            ###   ########.fr       */
+/*   Created: 2020/12/23 08:27:44 by hynam             #+#    #+#             */
+/*   Updated: 2020/12/23 15:29:52 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(void)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	int		status;
-	pid_t	pid;
-	char	*str;
+	char			*tmp;
+	unsigned int	i;
 
-	str = NULL;
-	status = 0;
-	while (1)
+	if (s == 0 || f == 0)
+		return (0);
+	tmp = (char *)malloc(ft_strlen(s) + 1);
+	if (tmp == 0)
+		return (0);
+	i = 0;
+	while (s[i])
 	{
-		str = readline("> ");
-		if (ft_strncmp(str, "exit", 4) == 0)
-			break;
-		pid = fork();
-		if (pid == 0)
-		{
-			if (ft_strncmp(str, "pwd") == 0)
-				printf("%s\n", getcwd(NULL, 100));
-			exit(3);
-		}
-		waitpid(pid, &status, 0);
-		add_history(str);
-		free(str);
+		tmp[i] = f(i, s[i]);
+		i++;
 	}
-	printf("%d\n", status);
-	return (0);
+	tmp[i] = 0;
+	return (tmp);
 }

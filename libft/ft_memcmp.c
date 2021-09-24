@@ -1,41 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/23 16:41:40 by hynam             #+#    #+#             */
-/*   Updated: 2021/09/24 16:19:26 by hynam            ###   ########.fr       */
+/*   Created: 2020/12/21 14:43:40 by hynam             #+#    #+#             */
+/*   Updated: 2020/12/24 16:06:55 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(void)
+int	ft_memcmp(void const *ptr1, void const *ptr2, size_t num)
 {
-	int		status;
-	pid_t	pid;
-	char	*str;
+	unsigned char	*p1;
+	unsigned char	*p2;
 
-	str = NULL;
-	status = 0;
-	while (1)
+	p1 = (unsigned char *)ptr1;
+	p2 = (unsigned char *)ptr2;
+	if (num != 0)
 	{
-		str = readline("> ");
-		if (ft_strncmp(str, "exit", 4) == 0)
-			break;
-		pid = fork();
-		if (pid == 0)
+		while (num != 0)
 		{
-			if (ft_strncmp(str, "pwd") == 0)
-				printf("%s\n", getcwd(NULL, 100));
-			exit(3);
+			if (*p1++ != *p2++)
+				return (*--p1 - *--p2);
+			num--;
 		}
-		waitpid(pid, &status, 0);
-		add_history(str);
-		free(str);
 	}
-	printf("%d\n", status);
 	return (0);
 }

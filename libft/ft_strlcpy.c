@@ -1,41 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/23 16:41:40 by hynam             #+#    #+#             */
-/*   Updated: 2021/09/24 16:19:26 by hynam            ###   ########.fr       */
+/*   Created: 2020/12/21 14:23:37 by hynam             #+#    #+#             */
+/*   Updated: 2020/12/23 15:28:51 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(void)
+size_t	ft_strlcpy(char *dest, char const *src, size_t size)
 {
-	int		status;
-	pid_t	pid;
-	char	*str;
+	size_t	i;
+	size_t	len;
 
-	str = NULL;
-	status = 0;
-	while (1)
+	len = ft_strlen(src);
+	i = 0;
+	if (size == 0)
+		return (len);
+	while (*src && i++ < size - 1)
 	{
-		str = readline("> ");
-		if (ft_strncmp(str, "exit", 4) == 0)
-			break;
-		pid = fork();
-		if (pid == 0)
-		{
-			if (ft_strncmp(str, "pwd") == 0)
-				printf("%s\n", getcwd(NULL, 100));
-			exit(3);
-		}
-		waitpid(pid, &status, 0);
-		add_history(str);
-		free(str);
+		*dest = *src;
+		dest++;
+		src++;
 	}
-	printf("%d\n", status);
-	return (0);
+	*dest = 0;
+	return (len);
 }

@@ -1,41 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/23 16:41:40 by hynam             #+#    #+#             */
-/*   Updated: 2021/09/24 16:19:26 by hynam            ###   ########.fr       */
+/*   Created: 2020/12/21 14:12:31 by hynam             #+#    #+#             */
+/*   Updated: 2020/12/23 21:58:34 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(void)
+size_t	ft_strlcat(char *dst, char const *src, size_t size)
 {
-	int		status;
-	pid_t	pid;
-	char	*str;
+	size_t	n;
+	size_t	dlen;
+	char	*tmp;
 
-	str = NULL;
-	status = 0;
-	while (1)
+	tmp = (char *)src;
+	dlen = ft_strlen(dst);
+	if (size <= dlen)
+		return (size + ft_strlen(src));
+	n = size - dlen;
+	while (*dst)
+		dst++;
+	while (*tmp)
 	{
-		str = readline("> ");
-		if (ft_strncmp(str, "exit", 4) == 0)
-			break;
-		pid = fork();
-		if (pid == 0)
+		if (n != 1)
 		{
-			if (ft_strncmp(str, "pwd") == 0)
-				printf("%s\n", getcwd(NULL, 100));
-			exit(3);
+			*dst++ = *tmp;
+			n--;
 		}
-		waitpid(pid, &status, 0);
-		add_history(str);
-		free(str);
+		tmp++;
 	}
-	printf("%d\n", status);
-	return (0);
+	*dst = '\0';
+	return (dlen + ft_strlen(src));
 }
