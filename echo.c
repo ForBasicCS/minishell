@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 16:49:54 by minchoi           #+#    #+#             */
-/*   Updated: 2021/09/26 13:20:10 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/09/26 13:24:11 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	ft_echo(char **ins)
 	int	i;
 
 	i = 1;
+	n_flag = 0;
 	if (check_option_n(ins))
 	{
 		n_flag = 1;
