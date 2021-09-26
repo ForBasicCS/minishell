@@ -6,9 +6,10 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:35:53 by hynam             #+#    #+#             */
-/*   Updated: 2021/09/26 16:48:56 by hynam            ###   ########.fr       */
+/*   Updated: 2021/09/26 17:15:24 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -29,6 +30,8 @@
 # include <dirent.h>
 # include <termios.h>
 # include <termcap.h>
+# include <errno.h>
+# include <string.h>
 
 typedef struct s_cmd
 {
@@ -44,5 +47,13 @@ void	init_list(t_list *lst);
 t_list	*new_list(t_list *lst, t_cmd *cmd);
 int		parsing(t_list *lst, char *str);
 void	print_all(t_cmd *cmd);
+int		check_builtin(char **ins);
+void	exec_builtin(char **ins);
 
+/* in builtin dir */
+void	ft_echo(char **ins);
+void	ft_cd(char **ins);
+
+/* in error dir */
+int		print_exec_err(char *ins, char *arg, char *err_msg);
 #endif
