@@ -1,0 +1,12 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory `/Users/nhs/minishell'
+make bonus -C ./libft/
+gcc -Wall -Wextra -Werror -g3 -fsanitize=address -c main.c -o main.o -I ./
+ 
+make bonus -C ./libft/
+gcc -Wall -Wextra -Werror -g3 -fsanitize=address -c parsing.c -o parsing.o -I ./
+make bonus -C ./libft/
+gcc -Wall -Wextra -Werror -g3 -fsanitize=address -c init.c -o init.o -I ./
+gcc -Wall -Wextra -Werror -g3 -fsanitize=address -I ./ main.o parsing.o init.o -o minishell -lreadline ./libft/libft.a
+make: Leaving directory `/Users/nhs/minishell'
+ 

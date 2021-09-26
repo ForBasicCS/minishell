@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 16:42:54 by hynam             #+#    #+#             */
-/*   Updated: 2020/12/25 20:10:22 by hynam            ###   ########.fr       */
+/*   Updated: 2021/09/26 14:36:53 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	ft_strcpy(char *dest, char *s1, char *s2)
 	*dest = 0;
 }
 
-static char	**ft_free(char **s)
+char	**ft_free(char **s)
 {
 	size_t	i;
 
