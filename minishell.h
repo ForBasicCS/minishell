@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:35:53 by hynam             #+#    #+#             */
-/*   Updated: 2021/09/24 16:59:07 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/09/26 16:06:41 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,22 @@
 # include <dirent.h>
 # include <termios.h>
 # include <termcap.h>
+# include <errno.h>
+# include <string.h>
 
 struct s_cmd
 {
     /* data */
 };
 
-void	ft_echo(char **ins);
+int		check_builtin(char **ins);
+void	exec_builtin(char **ins);
 
+/* in builtin dir */
+void	ft_echo(char **ins);
+void	ft_cd(char **ins);
+
+/* in error dir */
+int		print_exec_err(char *ins, char *arg, char *err_msg);
 
 #endif

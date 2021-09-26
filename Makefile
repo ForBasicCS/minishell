@@ -4,7 +4,11 @@ CFLAGS = -Wall -Wextra -Werror
 NAME = minishell
 
 SRCS =	main.c\
-		echo.c\
+		builtin/echo.c\
+		builtin/cd.c\
+		exec.c\
+		exec_utils.c\
+		error/print_exec_err.c\
 
 OBJS = $(SRCS:.c=.o)
 

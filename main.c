@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:41:40 by hynam             #+#    #+#             */
-/*   Updated: 2021/09/26 11:39:15 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/09/26 15:11:42 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,28 @@
 int	main(void)
 {
 	int		status;
-	pid_t	pid;
 	char	*str;
 
 	char	**ins;
 	int		i;
+	char	*buf;
+	size_t	size;
+	size = 200;
+	buf = NULL;
 
 	str = NULL;
 	status = 0;
 	while (1)
 	{
+		printf("%s ", getcwd(buf, size));
 		str = readline("> ");
 		ins = ft_split(str, ' '); // Parsing 대용
 		if (ft_strncmp(ins[0], "exit", ft_strlen(ins[0])) == 0)
 			break;
-		pid = fork();
-		if (pid == 0)
-		{
-			if (ft_strncmp(ins[0], "echo", ft_strlen(ins[0])) == 0)
-				ft_echo(ins);
-			exit(3);
-		}
+		if (check_builtin(ins))
+			exec_builtin(ins);
+		else
+			printf("It is not built-in func\n");
 		
 		i = 0; // Parsing 대용 free
 		while (ins[i])
@@ -45,10 +46,8 @@ int	main(void)
 		}
 		free(ins);
 		
-		waitpid(pid, &status, 0);
 		add_history(str);
 		free(str);
 	}
-	printf("%d\n", status);
-	return (1);
+	return (0);
 }
