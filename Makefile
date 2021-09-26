@@ -1,14 +1,16 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
 NAME = minishell
 
-SRCS = main.c
+SRCS = main.c \
+		parsing.c \
+		init.c \
 
 OBJS = $(SRCS:.c=.o)
 
 %.o: %.c
-	@ make -C ./libft/
+	@ make bonus -C ./libft/
 	$(CC) $(CFLAGS) -c $< -o $@ -I ./
 
 $(NAME): $(OBJS)
