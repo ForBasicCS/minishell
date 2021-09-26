@@ -6,45 +6,51 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 16:49:54 by minchoi           #+#    #+#             */
-/*   Updated: 2021/09/26 11:49:08 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/09/26 13:20:10 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_echo(char **ins, int flag)
+int	check_option_n(char **ins)
 {
 	int	i;
 
-	if (flag == 1)
-	{
-		i = 2;
-		while (ins[i])
-		{
-			printf("%s", ins[i]);
-			i++;
-			if (ins[i])
-				printf(" ");
-		}
-	}
-	else
+	if (ft_strncmp(ins[1], "-n", 2) == 0)
 	{
 		i = 1;
-		while (ins[i])
+		while (ins[1][i])
 		{
-			printf("%s", ins[i]);
+			if (ins[1][i] != 'n')
+				return (0);
 			i++;
-			if (ins[i])
-				printf(" ");
 		}
-		printf("\n");
+		return (1);
 	}
+	return (0);
 }
 
 void	ft_echo(char **ins)
 {
-	if (ft_strncmp(ins[1], "-n", ft_strlen(ins[1])) == 0)
-		print_echo(ins, 1);
-	else
-		print_echo(ins, 0);
+	int	n_flag;
+	int	i;
+
+	i = 1;
+	if (check_option_n(ins))
+	{
+		n_flag = 1;
+		i++;
+	}
+	while (ins[i])
+	{
+		//if () //환경 변수를 출력하는 부분
+		//	; 
+		//else
+		printf("%s", ins[i]);
+		i++;
+		if (ins[i])
+			printf(" ");
+	}
+	if (n_flag != 1)
+		printf("\n");
 }
