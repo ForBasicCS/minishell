@@ -3,7 +3,8 @@ CFLAGS = -Wall -Wextra -Werror
 
 NAME = minishell
 
-SRCS = main.c
+SRCS =	main.c\
+		echo.c\
 
 OBJS = $(SRCS:.c=.o)
 

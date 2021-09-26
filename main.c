@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:41:40 by hynam             #+#    #+#             */
-/*   Updated: 2021/09/24 16:19:26 by hynam            ###   ########.fr       */
+/*   Updated: 2021/09/26 11:39:15 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,37 @@ int	main(void)
 	pid_t	pid;
 	char	*str;
 
+	char	**ins;
+	int		i;
+
 	str = NULL;
 	status = 0;
 	while (1)
 	{
 		str = readline("> ");
-		if (ft_strncmp(str, "exit", 4) == 0)
+		ins = ft_split(str, ' '); // Parsing 대용
+		if (ft_strncmp(ins[0], "exit", ft_strlen(ins[0])) == 0)
 			break;
 		pid = fork();
 		if (pid == 0)
 		{
-			if (ft_strncmp(str, "pwd") == 0)
-				printf("%s\n", getcwd(NULL, 100));
+			if (ft_strncmp(ins[0], "echo", ft_strlen(ins[0])) == 0)
+				ft_echo(ins);
 			exit(3);
 		}
+		
+		i = 0; // Parsing 대용 free
+		while (ins[i])
+		{
+			free(ins[i]);
+			i++;
+		}
+		free(ins);
+		
 		waitpid(pid, &status, 0);
 		add_history(str);
 		free(str);
 	}
 	printf("%d\n", status);
-	return (0);
+	return (1);
 }

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:35:53 by hynam             #+#    #+#             */
-/*   Updated: 2021/09/24 15:43:05 by hynam            ###   ########.fr       */
+/*   Updated: 2021/09/24 16:59:07 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../libft/libft.h"
+# include "./libft/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <signal.h>
@@ -34,6 +34,8 @@ struct s_cmd
 {
     /* data */
 };
+
+void	ft_echo(char **ins);
 
 
 #endif
