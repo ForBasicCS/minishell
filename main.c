@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:41:40 by hynam             #+#    #+#             */
-/*   Updated: 2021/09/27 13:28:47 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/09/27 14:15:18 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ int	main(int argc, char *argv[], char **envp)
 	if (!cmd)
 		printf("Error: Failed to allocate.");
 	cmd->environ = envp;
-	while (cmd->environ[argc])
-	{
-		printf("%s\n", cmd->environ[argc]);
-		argc++;
-	}
+	//while (cmd->environ[argc])
+	//{
+	//	printf("%s\n", cmd->environ[argc]);
+	//	argc++;
+	//}
 
 	str = NULL;
 	status = 0;

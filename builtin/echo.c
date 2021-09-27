@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 16:49:54 by minchoi           #+#    #+#             */
-/*   Updated: 2021/09/27 14:10:26 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/09/27 14:21:53 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ void	ft_echo(t_cmd *cmd)
 	}
 	while (cmd->word[i])
 	{
-		if (ft_strchr(cmd->word[i], '$')) // 환경 변수를 출력하는 부분
+		if (ft_strchr(cmd->word[i], '$')
+			&& *(ft_strchr(cmd->word[i], '$') + 1) != 0) // 환경 변수를 출력하는 부분
 			echo_env(cmd->word[i], cmd->environ); 
 		else // 일반적인 출력
 			printf("%s", cmd->word[i]);
