@@ -6,26 +6,32 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:41:40 by hynam             #+#    #+#             */
-/*   Updated: 2021/09/26 17:28:42 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/09/27 13:28:47 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	g_status = 1;
 
 int	main(int argc, char *argv[], char **envp)
 {
 	int		status;
 	char	*str;
 
-	char	**ins;
 	int		i;
 	char	*buf;
 	buf = NULL;
 	argc = 0;
 	argv = NULL;
-	while (envp[argc])
+	t_cmd	*cmd;
+	cmd = (t_cmd *)malloc(sizeof(t_cmd));
+	if (!cmd)
+		printf("Error: Failed to allocate.");
+	cmd->environ = envp;
+	while (cmd->environ[argc])
 	{
-		printf("%s\n", envp[argc]);
+		printf("%s\n", cmd->environ[argc]);
 		argc++;
 	}
 
@@ -35,24 +41,25 @@ int	main(int argc, char *argv[], char **envp)
 	{
 		printf("%s ", getcwd(buf, 1024));
 		str = readline("> ");
-		ins = ft_split(str, ' '); // Parsing 대용
-		if (ft_strncmp(ins[0], "exit", ft_strlen(ins[0])) == 0)
+		cmd->word = ft_split(str, ' '); // Parsing 대용
+		if (ft_strncmp(cmd->word[0], "exit", ft_strlen(cmd->word[0])) == 0)
 			break;
-		if (check_builtin(ins))
-			exec_builtin(ins);
+		if (check_builtin(cmd))
+			exec_builtin(cmd);
 		else
 			printf("It is not built-in func\n");
 		
 		i = 0; // Parsing 대용 free
-		while (ins[i])
+		while (cmd->word[i])
 		{
-			free(ins[i]);
+			free(cmd->word[i]);
 			i++;
 		}
-		free(ins);
+		free(cmd->word);
 		
 		add_history(str);
 		free(str);
 	}
+	free(cmd);
 	return (0);
 }

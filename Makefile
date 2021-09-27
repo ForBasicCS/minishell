@@ -9,6 +9,7 @@ SRCS =	main.c\
 		exec.c\
 		exec_utils.c\
 		error/print_exec_err.c\
+		utils/find_env.c\
 		parsing.c\
 		init.c\
 

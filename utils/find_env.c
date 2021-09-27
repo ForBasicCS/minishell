@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_utils.c                                       :+:      :+:    :+:   */
+/*   find_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/26 14:34:08 by minchoi           #+#    #+#             */
-/*   Updated: 2021/09/26 21:12:11 by minchoi          ###   ########.fr       */
+/*   Created: 2021/09/27 12:46:47 by minchoi           #+#    #+#             */
+/*   Updated: 2021/09/27 13:52:31 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_builtin(t_cmd *cmd)
+char	*find_env(char *env_var, char **environ)
 {
-	char	*cmd_var;
+	char	*tmp;
+	int		i;
 
-	cmd_var = cmd->word[0];
-	if (ft_strncmp(cmd_var, "echo", ft_strlen(cmd_var)) == 0
-		|| ft_strncmp(cmd_var, "cd", ft_strlen(cmd_var)) == 0)
-		return (1);
-	return (0);
+	i = 0;
+	tmp = NULL;
+	while (environ[i])
+	{
+		if (ft_strncmp(env_var, environ[i], ft_strlen(env_var)) == 0
+			&& environ[i][ft_strlen(env_var)] == '=')
+			tmp = environ[i] + ft_strlen(env_var) + 1;
+		i++;
+	}
+	return (tmp);
 }

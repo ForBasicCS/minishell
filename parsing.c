@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 16:45:52 by hynam             #+#    #+#             */
-/*   Updated: 2021/09/26 16:48:50 by hynam            ###   ########.fr       */
+/*   Updated: 2021/09/26 21:06:48 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@ int	parsing(t_list *lst, char *str)
 
 void	print_all(t_cmd *cmd)
 {
-	printf("quote : %s\n", cmd->quote);
+	printf("quote : %c\n", cmd->quote);
 	printf("num pipe : %d\n", cmd->is_pipe);
-	printf("i_redir : %s\n", cmd->i_redir);
-	printf("o_redir : %s\n", cmd->o_redir);
+	printf("i_redir : %d\n", cmd->i_redir);
+	printf("o_redir : %d\n", cmd->o_redir);
 	int	i = 0;
 	while (cmd->word[i] != NULL)
 	{
