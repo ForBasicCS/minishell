@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 16:45:52 by hynam             #+#    #+#             */
-/*   Updated: 2021/09/26 21:06:48 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/09/29 21:24:57 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		is_valid(char *str)
+//미리 받아온 문자열에서 따옴표의 개수가 올바르지 않은지 파악
+int	is_valid(char *str)
 {
 	int		i;
 	char	quote;
@@ -23,11 +24,9 @@ int		is_valid(char *str)
 	{
 		if (str[i] == '\\' || str[i] == ';')
 			return (1);
-		else if (quote == 0 && str[i] == '\'')
-			quote = '\'';
-		else if (quote == 0 && str[i] == '\"')
-			quote = '\"';
-		else if (quote && (str[i] == '\'' || str[i] == '\"'))
+		if (quote == 0 && (str[i] == '\"' || str[i] == '\''))
+			quote = str[i];
+		else if (quote && str[i] == quote)
 			quote = 0;
 		i++;
 	}
@@ -60,37 +59,69 @@ void	check_pipe(t_cmd *cmd, char *str)
 	}
 }
 
-int	parsing(t_list *lst, char *str)
+//dest에 s1 ~ s2까지 복사 but trim문자는 복사 X
+void	ft_strcpy_trim(char *dest, char *s1, char *s2, char trim)
 {
-	int	i;
-	t_cmd	*cmd;
-
-	i = 0;
-	cmd = lst->content;
-	cmd->word = ft_split(str, ' ');
-	while (cmd->word[i] != NULL)
+	while (s1 < s2)
 	{
-		if (is_valid(cmd->word[i]))
+		if (*s1 == trim)
+			s1++;
+		else
 		{
-			cmd->word[0] = NULL;
-			return (1);
+			*dest = *s1;
+			dest++;
+			s1++;
 		}
-		check_pipe(cmd, cmd->word[i]);
-		i++;
 	}
-	return (0);
+	*dest = 0;
 }
 
-void	print_all(t_cmd *cmd)
+char	*end_point(t_cmd *cmd, const char *str)
 {
-	printf("quote : %c\n", cmd->quote);
-	printf("num pipe : %d\n", cmd->is_pipe);
-	printf("i_redir : %d\n", cmd->i_redir);
-	printf("o_redir : %d\n", cmd->o_redir);
-	int	i = 0;
-	while (cmd->word[i] != NULL)
+	char	quote;
+	char	*end;
+
+	end = (char *)str;
+	quote = 0;
+	//따옴표가 온전하면서 띄어쓰기가 나오면 반복문 종료 & end에 그 부분을 저장
+	while (*end && (*end != ' ' || quote))
 	{
-		printf("word : %s\n", cmd->word[i]);
-		i++;
+		if (!quote && (*end == '\'' || *end == '\"'))
+		{
+			quote = *end;
+			cmd->quote = *end;
+		}
+		else if (quote && quote == *end)
+			quote = 0;
+		end++;
 	}
+	return (end);
+}
+
+int	parsing(t_cmd *cmd, char *str)
+{
+	int		c;
+	char	*tmp;
+
+	c = 0;
+	cmd->word = (char **)ft_calloc(count_w(str, ' ') + 2, sizeof(char *));
+	if (!str || cmd->word == NULL)
+		return (1);
+	if (is_valid(str))
+		return (1);
+	while (*str)
+	{
+		//띄어쓰기가 나오면 다음문자 확인, 아니라면 그 글자를 시작점으로 잡음
+		if (*str != ' ')
+		{
+			tmp = str;
+			str = end_point(cmd, str);
+			cmd->word[c] = (char *)malloc((str - tmp) + 1);
+			//시작점에서 끝점까지 복사
+			ft_strcpy_trim(cmd->word[c++], tmp, str, 0);
+		}
+		else
+			str++;
+	}
+	return (0);
 }

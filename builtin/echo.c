@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 16:49:54 by minchoi           #+#    #+#             */
-/*   Updated: 2021/09/27 14:21:53 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/09/27 20:33:42 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,9 @@ void	ft_echo(t_cmd *cmd)
 
 	i = 1;
 	n_flag = 0;
-	if (check_option_n(cmd->word)) // -n 플래그 옵션 체크
+	if (cmd->word[i] == NULL)
+		return ;
+	if (check_option_n(cmd->word))
 	{
 		n_flag = 1;
 		i++;
@@ -72,9 +74,9 @@ void	ft_echo(t_cmd *cmd)
 	while (cmd->word[i])
 	{
 		if (ft_strchr(cmd->word[i], '$')
-			&& *(ft_strchr(cmd->word[i], '$') + 1) != 0) // 환경 변수를 출력하는 부분
-			echo_env(cmd->word[i], cmd->environ); 
-		else // 일반적인 출력
+			&& *(ft_strchr(cmd->word[i], '$') + 1) != 0)
+			echo_env(cmd->word[i], cmd->environ);
+		else
 			printf("%s", cmd->word[i]);
 		i++;
 		if (cmd->word[i])

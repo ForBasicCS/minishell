@@ -6,13 +6,13 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 16:42:54 by hynam             #+#    #+#             */
-/*   Updated: 2021/09/26 14:36:53 by hynam            ###   ########.fr       */
+/*   Updated: 2021/09/29 14:59:15 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	count_w(char const *s, char c)
+size_t	count_w(char const *s, char c)
 {
 	size_t	n;
 	int		i;
@@ -49,6 +49,8 @@ char	**ft_free(char **s)
 	size_t	i;
 
 	i = 0;
+	if (s == NULL)
+		return (0);
 	while (s[i])
 	{
 		free(s[i]);

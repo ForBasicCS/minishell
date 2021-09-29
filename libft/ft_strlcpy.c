@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 14:23:37 by hynam             #+#    #+#             */
-/*   Updated: 2020/12/23 15:28:51 by hynam            ###   ########.fr       */
+/*   Updated: 2021/09/29 12:39:12 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlcpy(char *dest, char const *src, size_t size)
 	size_t	i;
 	size_t	len;
 
+	if (dest == NULL || src == NULL)
+		return (0);
 	len = ft_strlen(src);
 	i = 0;
 	if (size == 0)
