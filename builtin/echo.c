@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/24 16:49:54 by minchoi           #+#    #+#             */
-/*   Updated: 2021/09/27 16:22:51 by minchoi          ###   ########.fr       */
+/*   Created: 2021/09/30 13:25:51 by minchoi           #+#    #+#             */
+/*   Updated: 2021/09/30 13:46:03 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	check_option_n(char **ins)
 	return (0);
 }
 
-void	echo_env(char *env_var, char **environ)
+void	echo_env(char *env_var, t_list *environ)
 {
 	char	*env_word;
 	int		dollar_sign;

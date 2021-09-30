@@ -4,22 +4,23 @@ CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 NAME = minishell
 
 SRCS =	main.c\
+		parsing.c\
+		init.c\
+		ft_list.c\
 		builtin/echo.c\
 		builtin/cd.c\
 		exec.c\
 		exec_utils.c\
 		error/print_exec_err.c\
 		utils/find_env.c\
-		parsing.c\
-		init.c\
 
 OBJS = $(SRCS:.c=.o)
 
 %.o: %.c
-	@ make -C ./libft/
 	$(CC) $(CFLAGS) -c $< -o $@ -I ./
 
 $(NAME): $(OBJS)
+	@ make bonus -C ./libft/
 	$(CC) $(CFLAGS) -I ./ $^ -o $@ -lreadline ./libft/libft.a
 
 all: $(NAME)

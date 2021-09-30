@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 14:23:37 by hynam             #+#    #+#             */
-/*   Updated: 2021/09/27 17:29:51 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/09/30 13:29:17 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlcpy(char *dest, char const *src, size_t size)
 	size_t	i;
 	size_t	len;
 
+	if (dest == NULL || src == NULL)
+		return (0);
 	len = ft_strlen(src);
 	i = 0;
 	if (size == 0 || src == NULL)
