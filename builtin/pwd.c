@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_utils.c                                       :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/26 14:34:08 by minchoi           #+#    #+#             */
-/*   Updated: 2021/09/30 15:06:38 by minchoi          ###   ########.fr       */
+/*   Created: 2021/09/30 14:58:58 by minchoi           #+#    #+#             */
+/*   Updated: 2021/09/30 15:05:12 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_builtin(t_cmd *cmd)
+void	ft_pwd(void)
 {
-	char	*cmd_var;
+	char	*pwd;
 
-	cmd_var = cmd->word[0];
-	if (ft_strncmp(cmd_var, "echo", ft_strlen(cmd_var)) == 0
-		|| ft_strncmp(cmd_var, "cd", ft_strlen(cmd_var)) == 0
-		|| ft_strncmp(cmd_var, "pwd", ft_strlen(cmd_var)) == 0)
-		return (1);
-	return (0);
+	pwd = getcwd(0, 1024);
+	printf("%s\n", pwd);
+	free(pwd);
+	g_status = 0;
 }
