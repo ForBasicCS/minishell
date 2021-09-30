@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 14:23:37 by hynam             #+#    #+#             */
-/*   Updated: 2020/12/23 15:28:51 by hynam            ###   ########.fr       */
+/*   Updated: 2021/09/27 17:29:51 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ size_t	ft_strlcpy(char *dest, char const *src, size_t size)
 
 	len = ft_strlen(src);
 	i = 0;
-	if (size == 0)
+	if (size == 0 || src == NULL)
 		return (len);
 	while (*src && i++ < size - 1)
 	{

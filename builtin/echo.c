@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 16:49:54 by minchoi           #+#    #+#             */
-/*   Updated: 2021/09/27 14:21:53 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/09/27 16:22:51 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	echo_status(char *env_var)
 {
 	printf("%s", ft_itoa(g_status));
-	if (env_var[2] != 0) // '$?' 은 특수하게 뒤에 문자열이 바로 연결되도 그 부분을 출력함
+	if (env_var[2] != 0)
 		printf("%s", &(env_var[2]));
 }
 
@@ -44,16 +44,16 @@ void	echo_env(char *env_var, char **environ)
 	int		i;
 
 	dollar_sign = ft_strchr(env_var, '$') - env_var;
-	if (dollar_sign > 0) // '$환경변수' 다른 문자열이 있으면 출력
+	if (dollar_sign > 0)
 	{
 		i = 0;
 		while (i < dollar_sign)
 			printf("%c", env_var[i++]);
 	}
-	if (env_var[dollar_sign + 1] == '?') // $? 인 경우 status 값 출력
+	if (env_var[dollar_sign + 1] == '?')
 		echo_status(env_var);
-	env_word = find_env(&(env_var[dollar_sign + 1]), environ); // 환경변수 존재유무 체크
-	if (env_word != NULL) // 환경변수를 찾은 경우에만 출력 -> (null) 이 출력되는걸 막음
+	env_word = find_env(&(env_var[dollar_sign + 1]), environ);
+	if (env_word != NULL)
 		printf("%s", env_word);
 }
 
@@ -64,7 +64,9 @@ void	ft_echo(t_cmd *cmd)
 
 	i = 1;
 	n_flag = 0;
-	if (check_option_n(cmd->word)) // -n 플래그 옵션 체크
+	if (cmd->word[i] == NULL)
+		return ;
+	if (check_option_n(cmd->word))
 	{
 		n_flag = 1;
 		i++;
@@ -72,9 +74,9 @@ void	ft_echo(t_cmd *cmd)
 	while (cmd->word[i])
 	{
 		if (ft_strchr(cmd->word[i], '$')
-			&& *(ft_strchr(cmd->word[i], '$') + 1) != 0) // 환경 변수를 출력하는 부분
-			echo_env(cmd->word[i], cmd->environ); 
-		else // 일반적인 출력
+			&& *(ft_strchr(cmd->word[i], '$') + 1) != 0)
+			echo_env(cmd->word[i], cmd->environ);
+		else
 			printf("%s", cmd->word[i]);
 		i++;
 		if (cmd->word[i])
