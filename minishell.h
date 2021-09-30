@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:35:53 by hynam             #+#    #+#             */
-/*   Updated: 2021/09/30 13:49:57 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/09/30 14:34:08 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,6 @@ int		print_exec_err(char *ins, char *arg, char *err_msg);
 
 /* in env dir */
 char	*find_env(char *env_var, t_list *environ);
+char	*make_path(char *path_a, char *path_b);
 
 #endif
