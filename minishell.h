@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:35:53 by hynam             #+#    #+#             */
-/*   Updated: 2021/09/30 16:03:13 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/09/30 17:35:55 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	exec_builtin(t_cmd *cmd);
 /* in builtin dir */
 void	ft_echo(t_cmd *cmd);
 void	ft_cd(t_cmd *cmd);
-void	ft_pwd(void);
+void	ft_pwd(t_cmd *cmd);
 void	ft_env(t_cmd *cmd);
 void	ft_exit(t_cmd *cmd);
 
