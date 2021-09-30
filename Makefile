@@ -10,6 +10,7 @@ SRCS =	main.c\
 		builtin/echo.c\
 		builtin/cd.c\
 		builtin/pwd.c\
+		builtin/env.c\
 		exec.c\
 		exec_utils.c\
 		error/print_exec_err.c\
