@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 14:43:27 by hynam             #+#    #+#             */
-/*   Updated: 2021/07/29 13:38:14 by hynam            ###   ########.fr       */
+/*   Updated: 2021/09/30 17:03:45 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ int	ft_atoi(char *str, int *n)
 	while (str[i] && ft_isdigit(str[i]))
 		nbr = nbr * 10 + (str[i++] - '0');
 	if (i == 0 || (str[i] && !ft_isdigit(str[i])))
-		return (-1);
-	if (nbr * sign < -2147483648 || nbr * sign > 2147483647)
 		return (-1);
 	*n = nbr * sign;
 	return (i);

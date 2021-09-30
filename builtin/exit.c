@@ -1,27 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_utils.c                                       :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/26 14:34:08 by minchoi           #+#    #+#             */
-/*   Updated: 2021/09/30 15:52:53 by minchoi          ###   ########.fr       */
+/*   Created: 2021/09/30 15:53:16 by minchoi           #+#    #+#             */
+/*   Updated: 2021/09/30 17:22:10 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_builtin(t_cmd *cmd)
+void	print_exit(int exit_flag)
 {
-	char	*cmd_var;
+	printf("Minishell will be over");
+	if (exit_flag % 256 != 0)
+		printf(": %d", exit_flag % 256);
+	printf("\n");
+	exit(exit_flag);
+}
 
-	cmd_var = cmd->word[0];
-	if (ft_strncmp(cmd_var, "echo", ft_strlen(cmd_var)) == 0
-		|| ft_strncmp(cmd_var, "cd", ft_strlen(cmd_var)) == 0
-		|| ft_strncmp(cmd_var, "pwd", ft_strlen(cmd_var)) == 0
-		|| ft_strncmp(cmd_var, "env", ft_strlen(cmd_var)) == 0
-		|| ft_strncmp(cmd_var, "exit", ft_strlen(cmd_var)) == 0)
-		return (1);
-	return (0);
+void	ft_exit(t_cmd *cmd)
+{
+	int	n;
+
+	n = 0;
+	if (cmd->word[2] != NULL)
+		printf("%s: too many arguments\n", cmd->word[0]);
+	else if (cmd->word[1] != NULL)
+	{
+		if (ft_atoi(cmd->word[1], &n) == -1)
+			print_exit(0);
+		print_exit(n);
+	}
+	print_exit(0);
 }
