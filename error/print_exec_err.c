@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 15:58:47 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/02 15:37:52 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/02 16:26:58 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	print_exec_err(char *ins, char *arg, int err_flag)
 			printf("%s: not an identifier: %s\n", ins, arg);
 		else if (err_flag == 3)
 			printf("%s: not enough arguments\n", ins);
+		else if (err_flag == 4)
+			printf("%s: %s: invalid parameter name\n", ins, arg);
 		return (1);
 	}
 	return (0);

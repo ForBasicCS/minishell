@@ -3,46 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   ft_list.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:05:44 by hynam             #+#    #+#             */
-/*   Updated: 2021/09/29 21:36:03 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/02 23:13:17 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 //str = 찾고자 하는 환경변수 를 찾는 함수
-int	compare(t_cmd *cmd, char *str)
+int	compare(t_list *environ, char *str)
 {
-	int	i;
+	int		i;
+	t_list	*tmp;
 
 	i = 0;
-	while (cmd->environ)
-	{
-		if (ft_strncmp((char *)cmd->environ->content, str, ft_strlen(str)) == 0)
-			return (0);
-		else
-			cmd->environ = cmd->environ->next;
-	}
+	tmp = environ;
+	if (ft_strncmp((char *)tmp->content, str, ft_strlen(str)) == 0
+		&& ((char *)tmp->content)[ft_strlen(str)] == '=')
+		return (0);
 	return (1);
 }
 
 //지우고자 하는 환경변수를 찾으면 지우는 함수
-void	remove_list(t_list *head, char *find,
-					int compare(t_cmd *cmd, char *str))
+void	remove_list(t_list *environ, char *look)
 {
 	t_list	*ptr;
 	t_list	*tmp;
 
-	if (head != NULL)
+	if (environ != NULL)
 	{
-		ptr = head;
+		ptr = environ;
 		while (ptr->next != NULL)
 		{
-			if (compare((t_cmd *)ptr->next->content, find) == 0)
+			if (compare(ptr->next, look) == 0)
 			{
 				tmp = ptr->next->next;
+				free(ptr->next->content);
 				free(ptr->next);
 				ptr->next = tmp;
 				return ;

@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 17:44:47 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/02 15:36:06 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/02 16:15:10 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,6 @@ int	check_key(t_cmd *cmd, int i)
 		return (1);
 }
 
-int	export_return(int ret)
-{
-	if (ret == 1)
-		return (1);
-	else
-		return (0);
-}
-
 int	new_env(t_cmd *cmd, int i, int ret)
 {
 	char	*tmp;
@@ -45,7 +37,7 @@ int	new_env(t_cmd *cmd, int i, int ret)
 
 	tmp = ft_strchr(cmd->word[i], '=');
 	if (tmp == NULL)
-		return (export_return(ret));
+		return (export_unset_return(ret));
 	key = front_of_env(cmd->word[i], (tmp - cmd->word[i]));
 	new = find_env(key, cmd->environ);
 	free(key);
@@ -57,7 +49,7 @@ int	new_env(t_cmd *cmd, int i, int ret)
 	}
 	else
 		ft_lstadd_back(&cmd->environ, ft_lstnew(ft_strdup(tmp)));
-	return (export_return(ret));
+	return (export_unset_return(ret));
 }	
 
 void	ft_export(t_cmd *cmd)

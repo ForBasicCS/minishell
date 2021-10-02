@@ -6,26 +6,64 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 15:04:50 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/02 15:41:51 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/02 23:14:36 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-1. 인자로 아무것도 안들어오면 'not enough argument' 에러 출력
-2. 숫자로만 이루어진 문자열이 인자로 들어오는 건 무시
-3. 숫자로 시작하는 인자가 들어오면 'invalid parameter name' 에러 출력
-	-> 숫자로 시작하는 인자가 여러개인 경우 맨 앞에 것만 에러 문구를 출력하는데
-	-> 우리는 그냥 다 하자.....
-4. 여러 개의 인자가 들어오면 각각을 수행 -> 3번과 같은 경우의 인자가 들어와도 올바른 건 제대로 동작
-*/
+int	check_param(char *cmd_word)
+{
+	int	i;
+
+	i = 0;
+	if (ft_isdigit(cmd_word[0]) && ft_atoi(cmd_word, &i) != -1)
+		return (0);
+	else if (ft_isdigit(cmd_word[0]) && ft_atoi(cmd_word, &i) == -1)
+		return (1);
+	else if (ft_isalpha(cmd_word[0]) || cmd_word[0] == '_')
+	{
+		i = 1;
+		while (cmd_word[i])
+		{
+			if (!(ft_isalpha(cmd_word[i]) || cmd_word[i] == '_'
+					|| ft_isdigit(cmd_word[i])))
+				return (1);
+			i++;
+		}
+		return (0);
+	}
+	else
+		return (1);
+}
+
+int	unset_env(t_cmd *cmd, int ret, int i)
+{
+	if (ft_isdigit(cmd->word[i][0]) && ft_atoi(cmd->word[i], &i) != -1)
+		return (export_unset_return(ret));
+	remove_list(cmd->environ, cmd->word[i]);
+	return (export_unset_return(ret));
+}
 
 void	ft_unset(t_cmd *cmd)
 {
 	int	ret;
+	int	i;
 
 	ret = 0;
 	if (cmd->word[1] == NULL)
 		ret = print_exec_err(cmd->word[0], NULL, 3);
+	i = 1;
+	while (cmd->word[i])
+	{
+		if (check_param(cmd->word[i]))
+			ret = print_exec_err(cmd->word[0], cmd->word[i], 4);
+		else
+			ret = unset_env(cmd, ret, i);
+		i++;
+	}
+	if (ret == 1)
+		g_status = 1;
+	else
+		g_status = 0;
 }

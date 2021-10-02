@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:35:53 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/02 15:34:44 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/02 23:07:14 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,11 @@ int		parsing(t_cmd *cmd, char *str);
 void	print_all(t_cmd *cmd);
 
 /* list function */
-void	remove_list(t_list *head, char *find, int compare(t_cmd *cmd, char *str));
+int		compare(t_list *environ, char *str);
+void	remove_list(t_list *environ, char *look);
 void	clear_list(t_list **lst);
 
+/* in exec dir */
 int		check_builtin(t_cmd *cmd);
 void	exec_builtin(t_cmd *cmd);
 

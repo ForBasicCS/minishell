@@ -14,10 +14,11 @@ SRCS =	main.c\
 		builtin/exit.c\
 		builtin/export.c\
 		builtin/unset.c\
-		exec.c\
-		exec_utils.c\
+		exec/exec.c\
+		exec/exec_utils.c\
 		error/print_exec_err.c\
 		utils/find_env.c\
+		utils/builtin_util.c\
 
 OBJS = $(SRCS:.c=.o)
 
