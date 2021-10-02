@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:25:51 by minchoi           #+#    #+#             */
-/*   Updated: 2021/09/30 13:46:03 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/02 14:51:04 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	echo_env(char *env_var, t_list *environ)
 	}
 	if (env_var[dollar_sign + 1] == '?')
 		echo_status(env_var);
-	env_word = find_env(&(env_var[dollar_sign + 1]), environ);
+	env_word = find_env_value(&(env_var[dollar_sign + 1]), environ);
 	if (env_word != NULL)
 		printf("%s", env_word);
 }
