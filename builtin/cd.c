@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 11:55:04 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/02 12:59:23 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/02 15:33:32 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	cd_home(t_cmd *cmd, char *path)
 	if (new_path == NULL)
 		return (0);
 	if (chdir(new_path) == -1)
-		return (print_cd_err(cmd->word[0], path + 1, strerror(errno)));
+		return (print_exec_err(cmd->word[0], path + 1, 1));
 	return (0);
 }
 
@@ -50,7 +50,7 @@ int	cd_env(t_cmd *cmd, char *path)
 	}
 	if (chdir(new_path) == -1)
 	{
-		print_cd_err(cmd->word[0], new_path, strerror(errno));
+		print_exec_err(cmd->word[0], new_path, 1);
 		free(new_path);
 		return (1);
 	}
@@ -71,7 +71,7 @@ void	ft_cd(t_cmd *cmd)
 	else
 	{
 		if (chdir(path) == -1)
-			ret = print_cd_err(cmd->word[0], path, strerror(errno));
+			ret = print_exec_err(cmd->word[0], path, 1);
 	}
 	if (ret == 1)
 		g_status = 1;

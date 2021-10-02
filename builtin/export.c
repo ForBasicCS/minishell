@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 17:44:47 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/02 14:46:35 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/02 15:36:06 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,10 @@ void	ft_export(t_cmd *cmd)
 		if (check_key(cmd, i))
 		{
 			if (ft_strchr(cmd->word[i], '=') != NULL)
-				ret = print_export_err(cmd->word[0], front_of_env(cmd->word[i],
-							ft_strchr(cmd->word[i], '=') - cmd->word[i]), 1);
+				ret = print_exec_err(cmd->word[0], front_of_env(cmd->word[i],
+							ft_strchr(cmd->word[i], '=') - cmd->word[i]), 2);
 			else
-				ret = print_export_err(cmd->word[0], cmd->word[i], 1);
+				ret = print_exec_err(cmd->word[0], cmd->word[i], 2);
 		}
 		else
 			ret = new_env(cmd, i, ret);

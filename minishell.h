@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:35:53 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/02 14:34:56 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/02 15:34:44 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,16 @@ void	ft_pwd(t_cmd *cmd);
 void	ft_env(t_cmd *cmd);
 void	ft_exit(t_cmd *cmd);
 void	ft_export(t_cmd *cmd);
+void	ft_unset(t_cmd *cmd);
 
 /* in error dir */
-int		print_cd_err(char *ins, char *arg, char *err_msg);
-int		print_export_err(char *ins, char *arg, int err_flag);
+int		print_exec_err(char *ins, char *arg, int err_flag);
 
-/* in env dir */
+/* in utils dir */
 char	*find_env_value(char *env_key, t_list *environ);
 t_list	*find_env(char *env_key, t_list *env);
 char	*make_path(char *path_a, char *path_b);
 char	*front_of_env(char *path, int dollar_sign);
+int		export_unset_return(int ret);
 
 #endif

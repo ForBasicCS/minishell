@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 14:40:48 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/01 00:54:21 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/02 15:38:24 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,6 @@ void	exec_builtin(t_cmd *cmd)
 		ft_exit(cmd);
 	else if (ft_strncmp(cmd_var, "export", ft_strlen(cmd_var)) == 0)
 		ft_export(cmd);
+	else if (ft_strncmp(cmd_var, "unset", ft_strlen(cmd_var)) == 0)
+		ft_unset(cmd);
 }
