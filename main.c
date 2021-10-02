@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:27:42 by minchoi           #+#    #+#             */
-/*   Updated: 2021/09/30 17:25:21 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/02 14:37:03 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,11 @@ int	main(int argc, char *argv[], char **envp)
 	buf = NULL;
 	cmd = (t_cmd *)malloc(sizeof(t_cmd));
 	lst.content = cmd;
+	init_envp(cmd, envp);
 	while (1)
 	{
 		printf("%s ", getcwd(buf, 1024));
-		init_data(cmd, envp);
+		init_data(cmd);
 		str = readline("> ");
 		if (parsing(cmd, str))
 		{

@@ -6,29 +6,48 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 12:46:47 by minchoi           #+#    #+#             */
-/*   Updated: 2021/09/30 14:50:09 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/02 13:04:44 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*find_env(char *env_var, t_list *env)
+char	*find_env_value(char *env_key, t_list *env)
 {
 	char	*tmp;
 
 	tmp = NULL;
 	while (env)
 	{
-		if (ft_strncmp(env_var, (char *)env->content, ft_strlen(env_var)) == 0
-			&& ((char *)env->content)[ft_strlen(env_var)] == '=')
+		if (ft_strncmp(env_key, (char *)env->content, ft_strlen(env_key)) == 0
+			&& ((char *)env->content)[ft_strlen(env_key)] == '=')
 		{
-			tmp = (char *)env->content + ft_strlen(env_var) + 1;
+			tmp = (char *)env->content + ft_strlen(env_key) + 1;
 			return (tmp);
 		}
 		else
 			env = env->next;
 	}
 	return (tmp);
+}
+
+t_list	*find_env(char *env_key, t_list *env)
+{
+	t_list	*ret;
+
+	ret = NULL;
+	while (env)
+	{
+		if (ft_strncmp(env_key, (char *)env->content, ft_strlen(env_key)) == 0
+			&& ((char *)env->content)[ft_strlen(env_key)] == '=')
+		{
+			ret = env;
+			return (ret);
+		}
+		else
+			env = env->next;
+	}
+	return (ret);
 }
 
 char	*make_path(char *path_a, char *path_b)
@@ -41,4 +60,13 @@ char	*make_path(char *path_a, char *path_b)
 	ft_strlcpy(new_path, path_a, ft_strlen(path_a) + 1);
 	ft_strlcpy(new_path + ft_strlen(path_a), path_b, ft_strlen(path_b) + 1);
 	return (new_path);
+}
+
+char	*front_of_env(char *path, int dollar_sign)
+{
+	char	*tmp;
+
+	tmp = (char *)malloc(dollar_sign + 1);
+	ft_strlcpy(tmp, path, dollar_sign + 1);
+	return (tmp);
 }

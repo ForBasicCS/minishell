@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:35:53 by hynam             #+#    #+#             */
-/*   Updated: 2021/09/30 17:35:55 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/02 14:34:56 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ typedef struct s_cmd
 	t_list	*environ;	//환경변수
 }t_cmd;
 
-void	init_data(t_cmd	*cmd, char **envp);
+void	init_data(t_cmd	*cmd);
+void	init_envp(t_cmd *cmd, char **envp);
+
 int		parsing(t_cmd *cmd, char *str);
 void	print_all(t_cmd *cmd);
 
@@ -62,12 +64,16 @@ void	ft_cd(t_cmd *cmd);
 void	ft_pwd(t_cmd *cmd);
 void	ft_env(t_cmd *cmd);
 void	ft_exit(t_cmd *cmd);
+void	ft_export(t_cmd *cmd);
 
 /* in error dir */
-int		print_exec_err(char *ins, char *arg, char *err_msg);
+int		print_cd_err(char *ins, char *arg, char *err_msg);
+int		print_export_err(char *ins, char *arg, int err_flag);
 
 /* in env dir */
-char	*find_env(char *env_var, t_list *environ);
+char	*find_env_value(char *env_key, t_list *environ);
+t_list	*find_env(char *env_key, t_list *env);
 char	*make_path(char *path_a, char *path_b);
+char	*front_of_env(char *path, int dollar_sign);
 
 #endif
