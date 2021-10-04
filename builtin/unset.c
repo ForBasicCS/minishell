@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 15:04:50 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/02 23:14:36 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/04 17:35:39 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	unset_env(t_cmd *cmd, int ret, int i)
 	return (export_unset_return(ret));
 }
 
-void	ft_unset(t_cmd *cmd)
+int	ft_unset(t_cmd *cmd)
 {
 	int	ret;
 	int	i;
@@ -66,4 +66,5 @@ void	ft_unset(t_cmd *cmd)
 		g_status = 1;
 	else
 		g_status = 0;
+	return (0);
 }
