@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:25:51 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/04 17:45:43 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/04 17:52:30 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	ft_echo(t_cmd *cmd)
 	i = 1;
 	n_flag = 0;
 	if (cmd->word[i] == NULL)
-		return ;
+		return (0);
 	if (check_option_n(cmd->word, &n_flag))
 		i++;
 	while (cmd->word[i])

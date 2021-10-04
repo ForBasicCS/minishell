@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 14:40:48 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/04 17:31:47 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/04 17:53:22 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	exec_builtin(t_cmd *cmd)
 		return (ft_export(cmd));
 	else if (ft_strncmp(cmd_var, "unset", ft_strlen(cmd_var)) == 0)
 		return (ft_unset(cmd));
-	// else
-	// 외장형 함수 실행
+	 else 
+		// 외장형 함수 실행
+		return (0);
 }
