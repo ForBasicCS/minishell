@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 17:44:47 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/02 16:15:10 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/04 17:35:14 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	new_env(t_cmd *cmd, int i, int ret)
 	return (export_unset_return(ret));
 }	
 
-void	ft_export(t_cmd *cmd)
+int	ft_export(t_cmd *cmd)
 {
 	int	ret;
 	int	i;
@@ -79,4 +79,5 @@ void	ft_export(t_cmd *cmd)
 		g_status = 1;
 	else
 		g_status = 0;
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:27:42 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/02 14:37:03 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/04 17:29:47 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	main(int argc, char *argv[], char **envp)
 		printf("%s ", getcwd(buf, 1024));
 		init_data(cmd);
 		str = readline("> ");
+		ㅁ
 		if (parsing(cmd, str))
 		{
 			printf("unvalid command\n");
@@ -41,6 +42,20 @@ int	main(int argc, char *argv[], char **envp)
 		}
 		else
 		{
+			/*
+			if (!is_pipe())
+			{
+				if (check_builtin(cmd))
+					exec_builtin(cmd);
+				else
+					print_error();
+			}
+
+			else
+				자식 | 부모
+				exec_pipe();
+
+			*/
 			if (check_builtin(cmd))
 			 	exec_builtin(cmd);
 			ft_free(cmd->word);

@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:35:53 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/02 23:07:14 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/04 17:32:23 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,13 @@ int		check_builtin(t_cmd *cmd);
 void	exec_builtin(t_cmd *cmd);
 
 /* in builtin dir */
-void	ft_echo(t_cmd *cmd);
-void	ft_cd(t_cmd *cmd);
-void	ft_pwd(t_cmd *cmd);
-void	ft_env(t_cmd *cmd);
-void	ft_exit(t_cmd *cmd);
-void	ft_export(t_cmd *cmd);
-void	ft_unset(t_cmd *cmd);
+int		ft_echo(t_cmd *cmd);
+int		ft_cd(t_cmd *cmd);
+int		ft_pwd(t_cmd *cmd);
+int		ft_env(t_cmd *cmd);
+int		ft_exit(t_cmd *cmd);
+int		ft_export(t_cmd *cmd);
+int		ft_unset(t_cmd *cmd);
 
 /* in error dir */
 int		print_exec_err(char *ins, char *arg, int err_flag);

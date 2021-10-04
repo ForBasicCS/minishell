@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 11:55:04 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/02 15:33:32 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/04 17:35:04 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	cd_env(t_cmd *cmd, char *path)
 	return (0);
 }
 
-void	ft_cd(t_cmd *cmd)
+int	ft_cd(t_cmd *cmd)
 {
 	char	*path;
 	int		ret;
@@ -77,4 +77,5 @@ void	ft_cd(t_cmd *cmd)
 		g_status = 1;
 	else
 		g_status = 0;
+	return (0);
 }
