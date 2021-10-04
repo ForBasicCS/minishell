@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_list.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:05:44 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/02 23:13:17 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/04 17:30:12 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	clear_list(t_list **lst)
 	while (*lst)
 	{
 		tmp = (*lst)->next;
+		free((*lst)->content);
 		free(*lst);
 		*lst = tmp;
 	}

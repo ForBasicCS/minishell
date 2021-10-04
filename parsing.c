@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 16:45:52 by hynam             #+#    #+#             */
-/*   Updated: 2021/09/30 13:40:29 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/04 17:31:09 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,30 +33,6 @@ int	is_valid(char *str)
 	if (quote)
 		return (1);
 	return (0);
-}
-
-void	check_pipe(t_cmd *cmd, char *str)
-{
-	if (ft_strncmp(str, "<", 1) == 0)
-	{
-		cmd->is_pipe++;
-		cmd->i_redir = 1;
-	}
-	else if (ft_strncmp(str, "<<", 2) == 0)
-	{
-		cmd->is_pipe++;
-		cmd->i_redir = 2;
-	}
-	else if (ft_strncmp(str, ">", 1) == 0)
-	{
-		cmd->is_pipe++;
-		cmd->o_redir = 1;
-	}
-	else if (ft_strncmp(str, ">>", 1) == 0)
-	{
-		cmd->is_pipe++;
-		cmd->o_redir = 2;
-	}
 }
 
 //dest에 s1 ~ s2까지 복사 but trim문자는 복사 X
