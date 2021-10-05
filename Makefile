@@ -18,6 +18,7 @@ SRCS =	main.c\
 		builtin/export.c\
 		builtin/unset.c\
 		exec/exec.c\
+		exec/exec_pipe.c\
 		exec/exec_utils.c\
 		error/print_exec_err.c\
 		utils/find_env.c\

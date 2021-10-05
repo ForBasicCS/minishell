@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:27:42 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/05 14:26:14 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/05 14:41:26 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,11 @@ void	handler(int signo)
 
 int	main(int argc, char *argv[], char **envp)
 {
-	int		status;
+	int		ret;
 	char	*str;
 	t_list	lst;
 	t_cmd	*cmd;
 
-	status = 0;
 	argc = 1;
 	argv = NULL;
 	cmd = (t_cmd *)malloc(sizeof(t_cmd));
@@ -64,8 +63,10 @@ int	main(int argc, char *argv[], char **envp)
 				exec_pipe();
 			*/
 			if (check_builtin(cmd))
-			 	exec_builtin(cmd);
-			ft_free(cmd->word);
+			 	ret = exec_builtin(cmd);
+			else
+				ret = exec_pipe(argc, argv, envp);
+			free_all(cmd);
 		}
 		add_history(str);
 		free(str);

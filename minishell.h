@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:35:53 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/05 14:34:31 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/05 14:41:33 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,20 @@
 
 extern int g_status;
 
+/*PIPE = |, INPUT = <, DOCUMENT = <<, OUTPUT = >, APPEND = >>*/
+typedef enum e_pipe {PIPE, INPUT, DOCUMENT, OUTPUT, APPEND}	t_pipe;
+
 typedef struct s_cmd
 {
 	char			**word;		//스플릿한 단어들
-	int				is_pipe;	//파이프 유무 -> 개수까지
-	int				i_redir;	//인풋 리다이렉션 -> 0이 디폴트, 1이면 < 2이면 <<
-	int				o_redir;	//아웃풋 리다이렉션 -> 0이 디폴트, 1이면 > 2이면 >>
+	int				is_str;		//"<<"이런식으로 들어오면 리다이렉션이 아닌 문자열로 인식해야하므로 0로 저장
+	int				p_type;		//파이프 타입, -1이면 없는거
 	char			quote;		//따옴표를 만나면 그 따옴표를 저장 -> 0이되면 따옴표가 쌍으로 있다
 	t_list			*environ;	//환경변수
 	int				ch;
 	int				idx;
+	struct s_cmd	*next;
+	struct s_cmd	*prev;
 	struct termios	org_term;	//캐노니컬 모드 터미널 옵션
 	struct termios	new_term;	//논캐노니컬 모드 터미널 옵션
 }t_cmd;
@@ -71,6 +75,7 @@ void	print_prompt(void);
 /* in exec dir */
 int		check_builtin(t_cmd *cmd);
 int		exec_builtin(t_cmd *cmd);
+int		exec_pipe(int argc, char **argv, char **envp);
 
 /* in builtin dir */
 int		ft_echo(t_cmd *cmd);
