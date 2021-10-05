@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:27:42 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/04 17:53:45 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/05 12:58:50 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,20 @@ int	main(int argc, char *argv[], char **envp)
 {
 	int		status;
 	char	*str;
-	char	*buf;
 	t_list	lst;
 	t_cmd	*cmd;
 
 	status = 0;
 	argc = 1;
 	argv = NULL;
-	buf = NULL;
 	cmd = (t_cmd *)malloc(sizeof(t_cmd));
 	lst.content = cmd;
 	init_envp(cmd, envp);
+	save_input_mode(cmd);
 	while (1)
 	{
 		init_data(cmd);
-		str = readline(ft_strjoin(getcwd(0, 1024),"> "));
+		str = ft_readline(cmd);
 		if (parsing(cmd, str))
 		{
 			printf("unvalid command\n");
@@ -52,7 +51,6 @@ int	main(int argc, char *argv[], char **envp)
 			else
 				자식 | 부모
 				exec_pipe();
-
 			*/
 			if (check_builtin(cmd))
 			 	exec_builtin(cmd);
