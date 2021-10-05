@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:35:53 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/04 20:04:21 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/05 13:06:33 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,18 @@
 
 extern int g_status;
 
+/*PIPE = |, INPUT = <, DOCUMENT = <<, OUTPUT = >, APPEND = >>*/
+typedef enum e_pipe {PIPE, INPUT, DOCUMENT, OUTPUT, APPEND}	t_pipe;
+
 typedef struct s_cmd
 {
-	char	**word;		//스플릿한 단어들
-	int		is_pipe;	//파이프 유무 -> 개수까지
-	int		i_redir;	//인풋 리다이렉션 -> 0이 디폴트, 1이면 < 2이면 <<
-	int		o_redir;	//아웃풋 리다이렉션 -> 0이 디폴트, 1이면 > 2이면 >>
-	char	quote;		//따옴표를 만나면 그 따옴표를 저장 -> 0이되면 따옴표가 쌍으로 있다
-	t_list	*environ;	//환경변수
+	char			**word;		//스플릿한 단어들, 마지막은 항상 NULL
+	int				fd[2];		//파이프가 있으면 필요
+	int				p_type;		//파이프 타입
+	char			quote;		//따옴표를 만나면 그 따옴표를 저장 -> 0이되면 따옴표가 쌍으로 있다
+	t_list			*environ;	//환경변수
+	struct s_cmd	*next;
+	struct s_cmd	*prev;
 }t_cmd;
 
 void	init_data(t_cmd	*cmd);
@@ -58,6 +62,7 @@ void	clear_list(t_list **lst);
 /* in exec dir */
 int		check_builtin(t_cmd *cmd);
 int		exec_builtin(t_cmd *cmd);
+int		exec_pipe(int argc, char **argv, char **envp);
 
 /* in builtin dir */
 int		ft_echo(t_cmd *cmd);

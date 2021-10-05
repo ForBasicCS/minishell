@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 14:05:38 by hynam             #+#    #+#             */
-/*   Updated: 2021/09/29 13:35:05 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/05 12:55:42 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int				ft_isprint(int c);
 char			*ft_strnstr(char const *big, char const *little, size_t len);
 char			*ft_strrchr(char const *s, int c);
 char			*ft_strdup(char *src);
+int				ft_strcmp(char const *s1, char const *s2);
 int				ft_strncmp(char const *s1, char const *s2, size_t n);
 size_t			ft_strlcat(char *dst, char const *src, size_t size);
 size_t			ft_strlen(char const *s);
