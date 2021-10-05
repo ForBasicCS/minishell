@@ -8,6 +8,8 @@ SRCS =	main.c\
 		init.c\
 		ft_list.c\
 		free_all.c\
+		set_term.c\
+		ft_readline.c\
 		builtin/echo.c\
 		builtin/cd.c\
 		builtin/pwd.c\
@@ -21,6 +23,9 @@ SRCS =	main.c\
 		error/print_exec_err.c\
 		utils/find_env.c\
 		utils/builtin_util.c\
+		utils/ft_chrdup.c\
+		utils/ft_strjoinchr.c\
+		utils/ft_strdown.c\
 
 OBJS = $(SRCS:.c=.o)
 

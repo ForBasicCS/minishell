@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:27:42 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/04 21:31:56 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/05 13:20:14 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,16 @@ int	main(int argc, char *argv[], char **envp)
 	t_list	lst;
 	t_cmd	*cmd;
 
-	ret = 0;
+	argc = 1;
+	argv = NULL;
 	cmd = (t_cmd *)malloc(sizeof(t_cmd));
 	lst.content = cmd;
 	init_envp(cmd, envp);
-	while (!ret)
+	save_input_mode(cmd);
+	while (1)
 	{
 		init_data(cmd);
-		str = readline(ft_strjoin(getcwd(0, 1024),"> "));
+		str = ft_readline(cmd);
 		if (parsing(cmd, str))
 		{
 			printf("unvalid command\n");
@@ -48,7 +50,6 @@ int	main(int argc, char *argv[], char **envp)
 			else
 				자식 | 부모
 				exec_pipe();
-
 			*/
 			if (check_builtin(cmd))
 			 	ret = exec_builtin(cmd);

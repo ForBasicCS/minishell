@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_chrdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/05 12:55:22 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/05 13:22:23 by hynam            ###   ########.fr       */
+/*   Created: 2021/10/05 12:06:09 by minchoi           #+#    #+#             */
+/*   Updated: 2021/10/05 12:06:26 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_strcmp(char const *s1, char const *s2)
+char	*ft_chrdup(int ch)
 {
-	while (*s1 && *s2)
-	{
-		if (*s1 != *s2)
-			break ;
-		s1++;
-		s2++;
-	}
-	return (*(unsigned char *)s1 - *(unsigned char *)s2);
+	char	*tmp;
+
+	tmp = (char *)malloc(2);
+	if (!tmp)
+		return (0);
+	tmp[0] = ch;
+	tmp[1] = 0;
+	return (tmp);
 }
