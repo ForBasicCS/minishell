@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 17:44:47 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/04 17:35:14 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/05 13:21:07 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ int	ft_export(t_cmd *cmd)
 	ret = 0;
 	if (cmd->word[1] == NULL)
 		print_env(cmd->environ);
-	i = 1;
-	while (cmd->word[i])
+	i = 0;
+	while (cmd->word[++i])
 	{
 		if (check_key(cmd, i))
 		{
@@ -73,7 +73,6 @@ int	ft_export(t_cmd *cmd)
 		}
 		else
 			ret = new_env(cmd, i, ret);
-		i++;
 	}
 	if (ret == 1)
 		g_status = 1;

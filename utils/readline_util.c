@@ -1,26 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_all.c                                         :+:      :+:    :+:   */
+/*   readline_util.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/04 17:35:31 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/05 13:21:41 by minchoi          ###   ########.fr       */
+/*   Created: 2021/10/05 14:33:43 by minchoi           #+#    #+#             */
+/*   Updated: 2021/10/05 14:34:13 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_all(t_cmd *cmd)
+char	*put_bs(int *idx, char *str)
 {
-	ft_free(cmd->word);
-	clear_list(&cmd->environ);
+	char	*tmp;
+
+	tmp = NULL;
+	if (*idx >= 0)
+	{
+		--(*idx);
+		write(0, "\b \b", 3);
+		tmp = str;
+		str = ft_strdown(tmp);
+		free(tmp);
+	}
+	return (str);
 }
 
-void	free_ctrl_d(t_cmd *cmd)
+char	*put_else(int *idx, char *str, int ch)
 {
-	clear_list(&cmd->environ);
-	free(cmd);
-	exit(0);
+	char	*tmp;
+
+	tmp = NULL;
+	++(*idx);
+	write(0, &ch, sizeof(int));
+	if (str == NULL)
+		str = ft_chrdup(ch);
+	else
+	{
+		tmp = str;
+		str = ft_strjoinchr(tmp, ch);
+		free(tmp);
+	}
+	return (str);
 }

@@ -6,13 +6,22 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:27:42 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/05 12:58:50 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/05 14:26:14 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_status = 1;
+
+void	handler(int signo)
+{
+	if (signo == 2)
+	{
+		write(0, "\n", 1);
+		print_prompt();
+	}
+}
 
 int	main(int argc, char *argv[], char **envp)
 {
@@ -28,6 +37,8 @@ int	main(int argc, char *argv[], char **envp)
 	lst.content = cmd;
 	init_envp(cmd, envp);
 	save_input_mode(cmd);
+	signal(SIGINT, handler);
+	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
 		init_data(cmd);
