@@ -6,27 +6,11 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 16:46:11 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/06 21:27:47 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/06 21:37:27 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-t_cmd	*copy_cmd(t_cmd *cmd)
-{
-	t_cmd	*copy;
-
-	copy = (t_cmd *)malloc(sizeof(t_cmd));
-	copy->ch = cmd->ch;
-	copy->environ = NULL;
-	copy->idx = cmd->idx;
-	copy->p_type = cmd->p_type;
-	copy->quote = cmd->quote;
-	copy->word = NULL;
-	copy->org_term = cmd->org_term;
-	copy->new_term = cmd->new_term;
-	return (copy);
-}
 
 void	go_head_cmd(t_cmd **cmd)
 {

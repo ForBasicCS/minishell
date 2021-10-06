@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:35:53 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/06 21:36:05 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/06 21:37:41 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,11 @@ void	init_envp(t_cmd *cmd, char **envp);
 int		parsing(t_cmd *cmd, char *str);
 void	free_all(t_cmd **cmd);
 void	free_ctrl_d(t_cmd *cmd);
+
+/* cmds function */
+void	go_head_cmd(t_cmd **cmd);
+void	clear_cmd(t_cmd **cmd);
+void	add_cmd(t_cmd **cmd);
 
 /* list function */
 int		compare(t_list *environ, char *str);
