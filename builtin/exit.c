@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:53:16 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/04 17:39:05 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/06 21:33:30 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int	ft_exit(t_cmd *cmd)
 	int	n;
 
 	n = 0;
-	if (cmd->word[2] != NULL)
+	if (cmd->cmd_num != 1)
 		printf("%s: too many arguments\n", cmd->word[0]);
-	else if (cmd->word[1] != NULL)
+	else if (cmd->cmd_num == 2)
 	{
 		if (ft_atoi(cmd->word[1], &n) == -1)
 			return (print_exit(0));

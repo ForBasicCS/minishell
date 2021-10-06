@@ -6,14 +6,14 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 17:35:31 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/04 17:38:04 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/06 14:01:12 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_all(t_cmd *cmd)
+void	free_all(t_cmd **cmd)
 {
-	ft_free(cmd->word);
-	clear_list(&cmd->environ);
+	clear_cmd(cmd);
+	// clear_list(&(*cmd)->environ);
 }

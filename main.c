@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:27:42 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/05 13:20:14 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/06 21:34:32 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,43 +23,33 @@ int	main(int argc, char *argv[], char **envp)
 
 	argc = 1;
 	argv = NULL;
-	cmd = (t_cmd *)malloc(sizeof(t_cmd));
-	lst.content = cmd;
-	init_envp(cmd, envp);
-	save_input_mode(cmd);
-	while (1)
+	ret = 0;
+	while (!ret)
 	{
+		cmd = (t_cmd *)malloc(sizeof(t_cmd));
+		lst.content = cmd;
+		init_envp(cmd, envp);
+		save_input_mode(cmd);
 		init_data(cmd);
 		str = ft_readline(cmd);
 		if (parsing(cmd, str))
-		{
 			printf("unvalid command\n");
-			free(cmd->word);
-		}
 		else
 		{
-			/*
-			if (!is_pipe())
+			// go_head_cmd(&cmd);
+			while (cmd)
 			{
 				if (check_builtin(cmd))
-					exec_builtin(cmd);
-				else
-					print_error();
+					ret = exec_builtin(cmd);
+				if (cmd->next == NULL)
+					break ;
+				cmd = cmd->next;
 			}
-
-			else
-				자식 | 부모
-				exec_pipe();
-			*/
-			if (check_builtin(cmd))
-			 	ret = exec_builtin(cmd);
-			else
-				ret = exec_pipe(argc, argv, envp);
-			free_all(cmd);
 		}
+		free_all(&cmd);
 		add_history(str);
 		free(str);
 	}
-	free(cmd);
+	// free(cmd);
 	return (0);
 }

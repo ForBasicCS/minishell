@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:35:53 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/05 14:38:25 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/06 13:55:26 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ typedef enum e_pipe {PIPE, INPUT, DOCUMENT, OUTPUT, APPEND}	t_pipe;
 typedef struct s_cmd
 {
 	char			**word;		//스플릿한 단어들
-	int				is_str;		//"<<"이런식으로 들어오면 리다이렉션이 아닌 문자열로 인식해야하므로 0로 저장
 	int				p_type;		//파이프 타입, -1이면 없는거
 	char			quote;		//따옴표를 만나면 그 따옴표를 저장 -> 0이되면 따옴표가 쌍으로 있다
 	t_list			*environ;	//환경변수
+	int				cmd_num;	//cd .. -> 2개, 기본 0개
 	int				ch;
 	int				idx;
 	struct s_cmd	*next;
@@ -56,7 +56,12 @@ void	init_data(t_cmd	*cmd);
 void	init_envp(t_cmd *cmd, char **envp);
 
 int		parsing(t_cmd *cmd, char *str);
-void	free_all(t_cmd *cmd);
+void	free_all(t_cmd **cmd);
+
+/* cmd function*/
+void	add_cmd(t_cmd **cmd);
+void	go_head_cmd(t_cmd **cmd);
+void	clear_cmd(t_cmd **cmd);
 
 /* list function */
 int		compare(t_list *environ, char *str);
