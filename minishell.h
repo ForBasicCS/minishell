@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:35:53 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/06 13:55:26 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/06 21:36:05 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,7 @@ void	init_envp(t_cmd *cmd, char **envp);
 
 int		parsing(t_cmd *cmd, char *str);
 void	free_all(t_cmd **cmd);
-
-/* cmd function*/
-void	add_cmd(t_cmd **cmd);
-void	go_head_cmd(t_cmd **cmd);
-void	clear_cmd(t_cmd **cmd);
+void	free_ctrl_d(t_cmd *cmd);
 
 /* list function */
 int		compare(t_list *environ, char *str);
@@ -74,6 +70,7 @@ void	set_input_mode(t_cmd *cmd);
 void	reset_input_mode(t_cmd *cmd);
 
 char	*ft_readline(t_cmd *cmd);
+void	print_prompt(void);
 
 /* in exec dir */
 int		check_builtin(t_cmd *cmd);
@@ -101,5 +98,7 @@ int		export_unset_return(int ret);
 char	*ft_strjoinchr(char *src, int ch);
 char	*ft_chrdup(int ch);
 char	*ft_strdown(char *str);
+char	*put_bs(int *idx, char *str);
+char	*put_else(int *idx, char *str, int ch);
 
 #endif

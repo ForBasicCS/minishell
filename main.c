@@ -6,13 +6,22 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:27:42 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/06 21:34:32 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/06 21:35:56 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_status = 1;
+
+void	handler(int signo)
+{
+	if (signo == 2)
+	{
+		write(0, "\n", 1);
+		print_prompt();
+	}
+}
 
 int	main(int argc, char *argv[], char **envp)
 {
@@ -36,7 +45,6 @@ int	main(int argc, char *argv[], char **envp)
 			printf("unvalid command\n");
 		else
 		{
-			// go_head_cmd(&cmd);
 			while (cmd)
 			{
 				if (check_builtin(cmd))
@@ -50,6 +58,5 @@ int	main(int argc, char *argv[], char **envp)
 		add_history(str);
 		free(str);
 	}
-	// free(cmd);
 	return (0);
 }

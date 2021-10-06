@@ -27,6 +27,7 @@ SRCS =	main.c\
 		utils/ft_chrdup.c\
 		utils/ft_strjoinchr.c\
 		utils/ft_strdown.c\
+		utils/readline_util.c\
 
 OBJS = $(SRCS:.c=.o)
 
