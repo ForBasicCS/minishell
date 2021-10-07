@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 14:58:58 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/04 17:37:56 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/07 13:03:22 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ int	ft_pwd(t_cmd *cmd)
 	pwd = getcwd(0, 1024);
 	printf("%s\n", pwd);
 	free(pwd);
-	g_status = 0;
+	cmd->status = 0;
 	return (0);
 }

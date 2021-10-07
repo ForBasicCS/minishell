@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 12:55:22 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/05 13:22:23 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/07 13:06:03 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	ft_strcmp(char const *s1, char const *s2)
 {
+	if (s1 == NULL || s2 == NULL)
+		return (-1);
 	while (*s1 && *s2)
 	{
 		if (*s1 != *s2)

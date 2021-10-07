@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 17:44:47 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/05 13:21:07 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/07 13:06:51 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_env(t_list *environ)
+static void	print_env(t_list *environ)
 {
 	while (environ)
 	{
@@ -21,7 +21,7 @@ void	print_env(t_list *environ)
 	}
 }
 
-int	check_key(t_cmd *cmd, int i)
+static int	check_key(t_cmd *cmd, int i)
 {
 	if (ft_isalpha(cmd->word[i][0]) || cmd->word[i][0] == '_')
 		return (0);
@@ -29,7 +29,7 @@ int	check_key(t_cmd *cmd, int i)
 		return (1);
 }
 
-int	new_env(t_cmd *cmd, int i, int ret)
+static int	new_env(t_cmd *cmd, int i, int ret)
 {
 	char	*tmp;
 	char	*key;
@@ -75,8 +75,8 @@ int	ft_export(t_cmd *cmd)
 			ret = new_env(cmd, i, ret);
 	}
 	if (ret == 1)
-		g_status = 1;
+		cmd->status = 1;
 	else
-		g_status = 0;
+		cmd->status = 0;
 	return (0);
 }

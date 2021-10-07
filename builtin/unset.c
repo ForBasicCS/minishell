@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 15:04:50 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/04 17:35:39 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/07 13:07:52 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_param(char *cmd_word)
+static int	check_param(char *cmd_word)
 {
 	int	i;
 
@@ -37,7 +37,7 @@ int	check_param(char *cmd_word)
 		return (1);
 }
 
-int	unset_env(t_cmd *cmd, int ret, int i)
+static int	unset_env(t_cmd *cmd, int ret, int i)
 {
 	if (ft_isdigit(cmd->word[i][0]) && ft_atoi(cmd->word[i], &i) != -1)
 		return (export_unset_return(ret));
@@ -63,8 +63,8 @@ int	ft_unset(t_cmd *cmd)
 		i++;
 	}
 	if (ret == 1)
-		g_status = 1;
+		cmd->status = 1;
 	else
-		g_status = 0;
+		cmd->status = 0;
 	return (0);
 }

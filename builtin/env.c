@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:25:01 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/04 17:35:30 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/07 13:03:06 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ int	ft_env(t_cmd *cmd)
 		printf("%s\n", (char *)tmp->content);
 		tmp = tmp->next;
 	}
-	g_status = 0;
+	cmd->status = 0;
 	return (0);
 }

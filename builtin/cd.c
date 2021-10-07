@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 11:55:04 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/04 17:35:04 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/07 13:04:59 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	cd_home(t_cmd *cmd, char *path)
+static int	cd_home(t_cmd *cmd, char *path)
 {
 	char	*new_path;
 
@@ -28,7 +28,7 @@ int	cd_home(t_cmd *cmd, char *path)
 	return (0);
 }
 
-int	cd_env(t_cmd *cmd, char *path)
+static int	cd_env(t_cmd *cmd, char *path)
 {
 	char	*new_path;
 	char	*tmp;
@@ -74,8 +74,8 @@ int	ft_cd(t_cmd *cmd)
 			ret = print_exec_err(cmd->word[0], path, 1);
 	}
 	if (ret == 1)
-		g_status = 1;
+		cmd->status = 1;
 	else
-		g_status = 0;
+		cmd->status = 0;
 	return (0);
 }

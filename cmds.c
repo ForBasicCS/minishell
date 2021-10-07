@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 16:46:11 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/06 21:37:27 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/07 13:13:22 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	add_cmd(t_cmd **cmd)
 	if (*cmd)
 	{
 		//환경변수는 굳이 매번 malloc해줄 필요가 없기 때문에 그냥 첫 주소를 가리키도록 함
-		new->environ = (*cmd)->environ;
 		(*cmd)->next = new;
 		new->prev = *cmd;
 	}

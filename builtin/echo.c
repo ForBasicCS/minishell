@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:25:51 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/04 17:52:30 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/07 13:04:04 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	echo_status(char *env_var)
+void	echo_status(t_cmd *cmd, char *env_var)
 {
-	printf("%d", g_status);
+	printf("%d", cmd->status);
 	if (env_var[2] != 0)
 		printf("%s", &(env_var[2]));
 }
@@ -38,7 +38,7 @@ int	check_option_n(char **ins, int *n_flag)
 	return (0);
 }
 
-void	echo_env(char *env_var, t_list *environ)
+void	echo_env(t_cmd *cmd, char *env_var, t_list *environ)
 {
 	char	*env_word;
 	int		dollar_sign;
@@ -52,7 +52,7 @@ void	echo_env(char *env_var, t_list *environ)
 			printf("%c", env_var[i++]);
 	}
 	if (env_var[dollar_sign + 1] == '?')
-		echo_status(env_var);
+		echo_status(cmd, env_var);
 	env_word = find_env_value(&(env_var[dollar_sign + 1]), environ);
 	if (env_word != NULL)
 		printf("%s", env_word);
@@ -65,15 +65,16 @@ int	ft_echo(t_cmd *cmd)
 
 	i = 1;
 	n_flag = 0;
-	if (cmd->word[i] == NULL)
+	if (cmd->cmd_num == 0)
 		return (0);
-	if (check_option_n(cmd->word, &n_flag))
-		i++;
+	if (cmd->cmd_num > 1)
+		if (check_option_n(cmd->word, &n_flag))
+			i++;
 	while (cmd->word[i])
 	{
 		if (ft_strchr(cmd->word[i], '$')
 			&& *(ft_strchr(cmd->word[i], '$') + 1) != 0)
-			echo_env(cmd->word[i], cmd->environ);
+			echo_env(cmd, cmd->word[i], cmd->environ);
 		else
 			printf("%s", cmd->word[i]);
 		i++;
@@ -82,6 +83,6 @@ int	ft_echo(t_cmd *cmd)
 	}
 	if (n_flag != 1)
 		printf("\n");
-	g_status = 0;
+	cmd->status = 0;
 	return (0);
 }

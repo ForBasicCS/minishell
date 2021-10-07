@@ -6,13 +6,13 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:53:16 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/06 21:33:30 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/07 13:10:00 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	print_exit(int exit_flag)
+static int	print_exit(int exit_flag)
 {
 	printf("Minishell will be over");
 	if (exit_flag % 256 != 0)

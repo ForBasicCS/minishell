@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:35:53 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/06 21:37:41 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/07 13:12:56 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # include <errno.h>
 # include <string.h>
 
-extern int g_status;
+extern t_list	*g_environ;
 
 /*PIPE = |, INPUT = <, DOCUMENT = <<, OUTPUT = >, APPEND = >>*/
 typedef enum e_pipe {PIPE, INPUT, DOCUMENT, OUTPUT, APPEND}	t_pipe;
@@ -46,6 +46,7 @@ typedef struct s_cmd
 	int				cmd_num;	//cd .. -> 2개, 기본 0개
 	int				ch;
 	int				idx;
+	int				status;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 	struct termios	org_term;	//캐노니컬 모드 터미널 옵션
@@ -53,10 +54,9 @@ typedef struct s_cmd
 }t_cmd;
 
 void	init_data(t_cmd	*cmd);
-void	init_envp(t_cmd *cmd, char **envp);
+void	init_envp(char **envp);
 
 int		parsing(t_cmd *cmd, char *str);
-void	free_all(t_cmd **cmd);
 void	free_ctrl_d(t_cmd *cmd);
 
 /* cmds function */
