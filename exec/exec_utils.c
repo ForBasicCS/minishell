@@ -3,21 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 14:34:08 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/07 12:59:24 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/10 14:08:04 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	check_bin(t_cmd *cmd)
+{
+	int			i;
+	char		*tmp;
+	char		*new_path;
+	struct stat	s;
+
+	i = -1;
+	if (stat(cmd->word[0], &s) == 0)
+		return (1);
+	tmp = ft_strjoin("/", cmd->word[0]);
+	while (cmd->path[++i])
+	{
+		new_path = ft_strjoin(cmd->path[i], tmp);
+		if (stat(new_path, &s) == 0)
+		{
+			free(tmp);
+			free(new_path);
+			return (1);
+		}
+		free(new_path);
+	}
+	free(tmp);
+	return (0);
+}
 
 int	check_builtin(t_cmd *cmd)
 {
 	char	*cmd_var;
 
 	cmd_var = cmd->word[0];
-	// ft_strcmp 만들면 그거로 변경
 	if (ft_strcmp(cmd_var, "echo") == 0
 		|| ft_strcmp(cmd_var, "cd") == 0
 		|| ft_strcmp(cmd_var, "pwd") == 0
@@ -26,11 +51,7 @@ int	check_builtin(t_cmd *cmd)
 		|| ft_strcmp(cmd_var, "export") == 0
 		|| ft_strcmp(cmd_var, "unset") == 0)
 		return (1);
-	/*
-	else if (절대 상대 경로 함수)
-	{
-		
-	}
-	*/
+	else if (check_bin(cmd))
+		return (1);
 	return (0);
 }

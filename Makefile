@@ -8,8 +8,6 @@ SRCS =	main.c\
 		init.c\
 		ft_list.c\
 		free_all.c\
-		set_term.c\
-		ft_readline.c\
 		cmds.c\
 		builtin/echo.c\
 		builtin/cd.c\
@@ -27,7 +25,6 @@ SRCS =	main.c\
 		utils/ft_chrdup.c\
 		utils/ft_strjoinchr.c\
 		utils/ft_strdown.c\
-		utils/readline_util.c\
 
 READLINE_DIR = /usr/local/opt/readline/lib/
 READLINE_INC = /usr/local/opt/readline/include/

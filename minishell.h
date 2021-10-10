@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:35:53 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/07 17:58:02 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/10 13:47:38 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,10 @@ typedef struct s_cmd
 	char			quote;		//따옴표를 만나면 그 따옴표를 저장 -> 0이되면 따옴표가 쌍으로 있다
 	t_list			*environ;	//환경변수
 	int				cmd_num;	//cd .. -> 2개, 기본 0개
-	int				ch;
-	int				idx;
+	char			**path;		//$PATH 의 경로를 저장하기 위한 변수
 	int				status;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
-	struct termios	org_term;	//캐노니컬 모드 터미널 옵션
-	struct termios	new_term;	//논캐노니컬 모드 터미널 옵션
 }t_cmd;
 
 void	init_data(t_cmd	*cmd);
@@ -69,17 +66,9 @@ int		compare(t_list *environ, char *str);
 void	remove_list(t_list *environ, char *look);
 void	clear_list(t_list **lst);
 
-/* termianl function */
-void	save_input_mode(t_cmd *cmd);
-void	set_input_mode(t_cmd *cmd);
-void	reset_input_mode(t_cmd *cmd);
-
-char	*ft_readline(t_cmd *cmd);
-void	print_prompt(void);
-
 /* in exec dir */
 int		check_builtin(t_cmd *cmd);
-int		exec_builtin(t_cmd *cmd);
+int		exec_builtin(t_cmd *cmd, char **envp);
 int		exec_pipe(int argc, char **argv, char **envp);
 
 /* in builtin dir */
@@ -103,7 +92,5 @@ int		export_unset_return(int ret);
 char	*ft_strjoinchr(char *src, int ch);
 char	*ft_chrdup(int ch);
 char	*ft_strdown(char *str);
-char	*put_bs(int *idx, char *str);
-char	*put_else(int *idx, char *str, int ch);
 
 #endif

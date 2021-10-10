@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:27:42 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/10 11:25:36 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/10 13:47:19 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	main(int argc, char *argv[], char **envp)
 			while (cmd)
 			{
 				if (check_builtin(cmd))
-					ret = exec_builtin(cmd);
+					ret = exec_builtin(cmd, envp);
 				if (cmd->next == NULL)
 					break ;
 				cmd = cmd->next;

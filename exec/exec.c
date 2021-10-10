@@ -3,16 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 14:40:48 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/07 13:08:09 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/10 14:07:48 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	exec_builtin(t_cmd *cmd)
+int	ft_bin_child(char *path, t_cmd *cmd, char **envp)
+{
+	int	pid;
+	int	status;
+
+	pid = fork();
+	if (pid == 0)
+		execve(path, cmd->word, envp);
+	waitpid(pid, &status, 0);
+	return (0);
+}
+
+int	ft_bin(t_cmd *cmd, char **envp)
+{
+	int			i;
+	char		*tmp;
+	char		*new_path;
+	struct stat	s;
+
+	i = -1;
+	if (stat(cmd->word[0], &s) == 0)
+		return (ft_bin_child(cmd->word[0], cmd, envp));
+	tmp = ft_strjoin("/", cmd->word[0]);
+	while (cmd->path[++i])
+	{
+		new_path = ft_strjoin(cmd->path[i], tmp);
+		if (stat(new_path, &s) == 0)
+		{
+			ft_bin_child(new_path, cmd, envp);
+			free(tmp);
+			free(new_path);
+			return (0);
+		}
+		free(new_path);
+	}
+	free(tmp);
+	return (1);
+}
+
+int	exec_builtin(t_cmd *cmd, char **envp)
 {
 	char	*cmd_var;
 
@@ -31,7 +70,6 @@ int	exec_builtin(t_cmd *cmd)
 		return (ft_export(cmd));
 	else if (ft_strcmp(cmd_var, "unset") == 0)
 		return (ft_unset(cmd));
-	else 
-		// 외장형 함수 실행
-		return (0);
+	else
+		return (ft_bin(cmd, envp));
 }
