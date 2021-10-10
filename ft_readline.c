@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 10:57:37 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/05 14:37:11 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/07 19:00:47 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,7 @@
 
 void	print_prompt(void)
 {
-	char	*tmp;
-
-	tmp = getcwd(NULL, 1024);
-	ft_putstr_fd(tmp, 1);
-	ft_putstr_fd("> ", 1);
-	free(tmp);
+	ft_putstr_fd("Minishell> ", 1);
 }
 
 char	*ft_readline(t_cmd *cmd)
