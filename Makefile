@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address -Qunused-arguments -L$(READLINE_DIR) -I$(READLINE_INC)
 
 NAME = minishell
 
@@ -22,10 +22,13 @@ SRCS =	main.c\
 		error/print_exec_err.c\
 		utils/find_env.c\
 		utils/builtin_util.c\
+		utils/signal_util.c\
 		utils/ft_chrdup.c\
 		utils/ft_strjoinchr.c\
 		utils/ft_strdown.c\
-		utils/readline_util.c\
+
+READLINE_DIR = /usr/local/opt/readline/lib/
+READLINE_INC = /usr/local/opt/readline/include/
 
 OBJS = $(SRCS:.c=.o)
 
