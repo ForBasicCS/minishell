@@ -6,22 +6,13 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:27:42 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/10 19:15:24 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/10 19:24:05 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 t_list	*g_environ;
-
-// void	handler(int signo)
-// {
-// 	if (signo == 2)
-// 	{
-// 		write(0, "\n", 1);
-// 		print_prompt();
-// 	}
-// }
 
 int	main(int argc, char *argv[], char **envp)
 {
@@ -52,10 +43,10 @@ int	main(int argc, char *argv[], char **envp)
 				if (cmd->next == NULL)
 				{
 					if (check_builtin(cmd))
-						ret = exec_builtin(cmd);
+						ret = exec_builtin(cmd, envp);
 				}
 				else
-					ret = exec_pipe(&cmd);
+					ret = exec_pipe(&cmd, envp);
 				if (cmd->next == NULL)
 					break ;
 				cmd = cmd->next;

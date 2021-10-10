@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:35:53 by hynam             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/10/09 14:52:45 by hynam            ###   ########.fr       */
-=======
-/*   Updated: 2021/10/10 14:19:40 by minchoi          ###   ########.fr       */
->>>>>>> 53bd05c50153f1b880ca91e25446cabd440279ca
+/*   Updated: 2021/10/10 19:20:35 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +72,8 @@ void	clear_list(t_list **lst);
 
 /* in exec dir */
 int		check_builtin(t_cmd *cmd);
-int		exec_builtin(t_cmd *cmd);
-int		exec_pipe(t_cmd **cmd);
+int		exec_builtin(t_cmd *cmd, char **envp);
+int		exec_pipe(t_cmd **cmd, char **envp);
 
 /* in builtin dir */
 int		ft_echo(t_cmd *cmd);
