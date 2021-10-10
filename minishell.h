@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:35:53 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/07 13:12:56 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/09 14:52:45 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # include <termcap.h>
 # include <errno.h>
 # include <string.h>
+# include <fcntl.h>
 
 extern t_list	*g_environ;
 
@@ -47,20 +48,21 @@ typedef struct s_cmd
 	int				ch;
 	int				idx;
 	int				status;
+	int				fd[2];
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
-	struct termios	org_term;	//캐노니컬 모드 터미널 옵션
-	struct termios	new_term;	//논캐노니컬 모드 터미널 옵션
 }t_cmd;
 
 void	init_data(t_cmd	*cmd);
 void	init_envp(char **envp);
 
-int		parsing(t_cmd *cmd, char *str);
+int		is_pipe(char *str);
+int		parsing(t_cmd **cmd, char *str);
 void	free_ctrl_d(t_cmd *cmd);
 
 /* cmds function */
 void	go_head_cmd(t_cmd **cmd);
+void	remove_cmd(t_cmd **cmd);
 void	clear_cmd(t_cmd **cmd);
 void	add_cmd(t_cmd **cmd);
 
@@ -80,7 +82,7 @@ void	print_prompt(void);
 /* in exec dir */
 int		check_builtin(t_cmd *cmd);
 int		exec_builtin(t_cmd *cmd);
-int		exec_pipe(int argc, char **argv, char **envp);
+int		exec_pipe(t_cmd **cmd);
 
 /* in builtin dir */
 int		ft_echo(t_cmd *cmd);

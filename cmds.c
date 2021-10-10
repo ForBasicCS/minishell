@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 16:46:11 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/07 13:13:22 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/09 16:14:11 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	go_head_cmd(t_cmd **cmd)
 
 void	clear_cmd(t_cmd **cmd)
 {
-	int	i;
+	int		i;
 	t_cmd	*tmp;
 
 	go_head_cmd(cmd);
@@ -46,7 +46,6 @@ void	add_cmd(t_cmd **cmd)
 	init_data(new);
 	if (*cmd)
 	{
-		//환경변수는 굳이 매번 malloc해줄 필요가 없기 때문에 그냥 첫 주소를 가리키도록 함
 		(*cmd)->next = new;
 		new->prev = *cmd;
 	}

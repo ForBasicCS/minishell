@@ -8,8 +8,6 @@ SRCS =	main.c\
 		init.c\
 		ft_list.c\
 		free_all.c\
-		set_term.c\
-		ft_readline.c\
 		cmds.c\
 		builtin/echo.c\
 		builtin/cd.c\
