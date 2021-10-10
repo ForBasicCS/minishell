@@ -22,6 +22,7 @@ SRCS =	main.c\
 		error/print_exec_err.c\
 		utils/find_env.c\
 		utils/builtin_util.c\
+		utils/signal_util.c\
 		utils/ft_chrdup.c\
 		utils/ft_strjoinchr.c\
 		utils/ft_strdown.c\

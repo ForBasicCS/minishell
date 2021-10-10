@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:35:53 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/10 13:47:38 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/10 14:19:40 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ t_list	*find_env(char *env_key, t_list *env);
 char	*make_path(char *path_a, char *path_b);
 char	*front_of_env(char *path, int dollar_sign);
 int		export_unset_return(int ret);
+void	set_signal(void);
 char	*ft_strjoinchr(char *src, int ch);
 char	*ft_chrdup(int ch);
 char	*ft_strdown(char *str);

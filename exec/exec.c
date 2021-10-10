@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 14:40:48 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/10 14:07:48 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/10 14:18:24 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	ft_bin_child(char *path, t_cmd *cmd, char **envp)
 {
-	int	pid;
-	int	status;
+	pid_t	pid;
+	int		status;
 
 	pid = fork();
 	if (pid == 0)
