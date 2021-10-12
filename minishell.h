@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:35:53 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/10 19:20:35 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/12 14:34:48 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,6 @@ void	set_signal(void);
 char	*ft_strjoinchr(char *src, int ch);
 char	*ft_chrdup(int ch);
 char	*ft_strdown(char *str);
+char	**ft_arrjoinstr(char **s1, char *s2);
 
 #endif

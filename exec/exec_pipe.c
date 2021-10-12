@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 20:06:10 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/10 19:22:14 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/12 14:47:02 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,21 @@ int	here_doucument(t_cmd **cmd, int fd, char **envp)
 {
 	char	*str;
 
-	dup2(fd, 0);
+	fd = open(".tmp", O_CREAT | O_TRUNC | O_WRONLY);
 	while (1)
 	{
 		str = readline("heredoc> ");
-		if (strcmp(str, (*cmd)->next->word[0]) == 0)
+		if (strcmp(str, (*cmd)->next->word[0]) == 0 && (*cmd)->next->word[1] == NULL)
 		{
 			free(str);
 			break ;
 		}
-		free(str);
+		write(fd, str, ft_strlen(str));
+		write(fd, "\n", 1);
 	}
+	(*cmd)->word = ft_arrjoinstr((*cmd)->word, ".tmp");
 	exec_builtin(*cmd, envp);
+	unlink(".tmp");
 	return (0);
 }
 
