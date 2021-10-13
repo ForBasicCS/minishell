@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:35:53 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/10 19:20:35 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/13 16:06:07 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	remove_list(t_list *environ, char *look);
 void	clear_list(t_list **lst);
 
 /* in exec dir */
+int		here_doucument(t_cmd **cmd, int fd, char **envp);
 int		check_builtin(t_cmd *cmd);
 int		exec_builtin(t_cmd *cmd, char **envp);
 int		exec_pipe(t_cmd **cmd, char **envp);
@@ -97,5 +98,11 @@ void	set_signal(void);
 char	*ft_strjoinchr(char *src, int ch);
 char	*ft_chrdup(int ch);
 char	*ft_strdown(char *str);
+char	**ft_arrjoinstr(char **s1, char *s2);
+
+int		set_redir_fd(t_cmd **cmd);
+void	set_pipe_fd(t_cmd **cmd, int *fd, int n, int *i);
+int		create_fd(t_cmd **cmd, int **fd);
+void	close_all(int fd[], int n);
 
 #endif

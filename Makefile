@@ -27,6 +27,7 @@ SRCS =	main.c\
 		utils/ft_strjoinchr.c\
 		utils/ft_strdown.c\
 		utils/ft_fd.c\
+		utils/ft_arrjoin.c\
 
 READLINE_DIR = /usr/local/opt/readline/lib/
 READLINE_INC = /usr/local/opt/readline/include/

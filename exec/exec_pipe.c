@@ -6,11 +6,36 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 20:06:10 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/13 16:01:06 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/13 16:06:43 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	here_doucument(t_cmd **cmd, int fd, char **envp)
+{
+	char	*str;
+
+	dup2(fd, 0);
+	fd = open(".tmp", O_CREAT | O_TRUNC | O_WRONLY);
+	while (1)
+	{
+		str = readline("heredoc> ");
+		if (strcmp(str, (*cmd)->next->word[0]) == 0)
+		if (strcmp(str, (*cmd)->next->word[0]) == 0 && (*cmd)->next->word[1] == NULL)
+		{
+			free(str);
+			break ;
+		}
+		free(str);
+		write(fd, str, ft_strlen(str));
+		write(fd, "\n", 1);
+	}
+	(*cmd)->word = ft_arrjoinstr((*cmd)->word, ".tmp");
+	exec_builtin(*cmd, envp);
+	unlink(".tmp");
+	return (fd);
+}
 
 int	redir_process(t_cmd **cmd, char **envp)
 {
