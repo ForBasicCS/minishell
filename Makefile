@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address -Qunused-arguments -L$(READLINE_DIR) -I$(READLINE_INC)
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address -Qunused-arguments `pkg-config --libs --cflags readline`
 
 NAME = minishell
 
@@ -26,6 +26,7 @@ SRCS =	main.c\
 		utils/ft_chrdup.c\
 		utils/ft_strjoinchr.c\
 		utils/ft_strdown.c\
+		utils/ft_fd.c\
 
 READLINE_DIR = /usr/local/opt/readline/lib/
 READLINE_INC = /usr/local/opt/readline/include/
@@ -37,7 +38,7 @@ OBJS = $(SRCS:.c=.o)
 
 $(NAME): $(OBJS)
 	@ make bonus -C ./libft/
-	$(CC) $(CFLAGS) -I ./ $^ -o $@ -lreadline ./libft/libft.a
+	$(CC) $(CFLAGS) -I ./ $^ -o $@ ./libft/libft.a
 
 all: $(NAME)
 

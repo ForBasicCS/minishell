@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:27:42 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/10 19:24:05 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/12 17:48:33 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	main(int argc, char *argv[], char **envp)
 		{
 			while (cmd)
 			{
-				if (cmd->next == NULL)
+				if (cmd->next == NULL && cmd->prev == NULL)
 				{
 					if (check_builtin(cmd))
 						ret = exec_builtin(cmd, envp);
