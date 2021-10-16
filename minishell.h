@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:35:53 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/16 16:48:44 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/16 17:05:08 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	free_ctrl_d(t_cmd *cmd);
 /* cmds function */
 void	go_head_cmd(t_cmd **cmd);
 void	remove_cmd(t_cmd **cmd);
-void	clear_cmd(t_cmd **cmd, char *str);
+void	clear_cmd(t_cmd **cmd, char **str);
 void	add_cmd(t_cmd **cmd);
 
 /* list function */

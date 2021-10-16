@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 16:46:11 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/16 16:24:20 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/16 17:22:32 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,28 @@ void	go_head_cmd(t_cmd **cmd)
 		*cmd = (*cmd)->prev;
 }
 
-void	clear_cmd(t_cmd **cmd, char *str)
+void	clear_cmd(t_cmd **cmd, char **str)
 {
 	int		i;
 	t_cmd	*tmp;
 
-	go_head_cmd(cmd);
-	while ((*cmd)->next)
+	while (*cmd)
 	{
 		i = -1;
-		tmp = (*cmd)->next;
+		tmp = (*cmd)->prev;
 		while (++i < (*cmd)->cmd_num + 1)
 			free((*cmd)->word[i]);
 		free((*cmd)->word);
+		i = -1;
+		while ((*cmd)->path[++i] != NULL)
+			free((*cmd)->path[i]);
+		free((*cmd)->path);
 		free(*cmd);
+		*cmd = NULL;
 		*cmd = tmp;
 	}
-	free(*cmd);
-	add_history(str);
-	free(str);
+	add_history(*str);
+	free(*str);
 }
 
 //원래의 cmd에 새로운 cmd를 추가하고, 새로운 cmd를 가리키도록 수정

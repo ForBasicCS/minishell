@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:27:42 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/16 16:48:41 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/16 17:23:05 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(int argc, char *argv[], char **envp)
 			printf("unvalid command\n");
 		else
 			ret = exec_cmd(&cmd, envp);
-		clear_cmd(&cmd, str);
+		clear_cmd(&cmd, &str);
 	}
 	clear_list(&g_environ);
 	return (0);
