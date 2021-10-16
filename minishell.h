@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:35:53 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/16 15:47:15 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/16 16:19:48 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ typedef enum e_pipe {PIPE, INPUT, DOCUMENT, OUTPUT, APPEND}	t_pipe;
 
 typedef struct s_cmd
 {
-	char			**word;		//스플릿한 단어들
-	int				p_type;		//파이프 타입, -1이면 없는거
-	char			quote;		//따옴표를 만나면 그 따옴표를 저장 -> 0이되면 따옴표가 쌍으로 있다
-	t_list			*environ;	//환경변수
-	int				cmd_num;	//cd .. -> 2개, 기본 0개
-	char			**path;		//$PATH 의 경로를 저장하기 위한 변수
+	char			**word;
+	int				p_type;
+	char			quote;
+	t_list			*environ;
+	int				cmd_num;
+	char			**path;
 	int				status;
 	int				fd[2];
 	struct s_cmd	*next;
@@ -99,6 +99,9 @@ char	*ft_strjoinchr(char *src, int ch);
 char	*ft_chrdup(int ch);
 char	*ft_strdown(char *str);
 char	**ft_arrjoinstr(char **s1, char *s2);
+int		is_pipe(char *str);
+int		is_valid(char *str);
+void	ft_strcpy_trim(char *dest, char *s1, char *s2, char trim);
 
 int		set_redir_fd(t_cmd **cmd);
 void	set_pipe_fd(t_cmd **cmd, int *fd, int n, int *i);

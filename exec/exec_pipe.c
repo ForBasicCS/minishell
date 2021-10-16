@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 20:06:10 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/16 15:54:52 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/16 16:04:54 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,6 @@ int	here_document(t_cmd **cmd, int fd)
 		free(str);
 	}
 	(*cmd)->word = ft_arrjoinstr((*cmd)->word, ".tmp");
-	// dup2(fd, 0);
-	// close(fd);
-	// if (check_builtin(*cmd))
-	// 	exec_builtin(*cmd, envp);
 	return (0);
 }
 
@@ -50,8 +46,10 @@ int	redir_process(t_cmd **cmd, char **envp)
 	i = 0;
 	flag = 0;
 	if ((*cmd)->p_type == 2)
+	{
 		here_document(cmd, set_redir_fd(cmd));
-	*cmd = (*cmd)->next;
+		*cmd = (*cmd)->next;
+	}
 	while ((*cmd)->next && (*cmd)->p_type != 0)
 	{
 		flag = 0;
@@ -63,19 +61,14 @@ int	redir_process(t_cmd **cmd, char **envp)
 		}
 		else
 			dup2(fd[i], 1);
-		if (!flag)
-		{
+		if (!flag && head->p_type != 2)
 			if (check_builtin(head))
 				exec_builtin(head, envp);
-		}
-		close(fd[i++]);
 		*cmd = (*cmd)->next;
 	}
 	if (flag || head->p_type == 2)
-	{
 		if (check_builtin(head))
 			exec_builtin(head, envp);
-	}
 	unlink(".tmp");
 	return (0);
 }
