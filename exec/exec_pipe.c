@@ -6,35 +6,37 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 20:06:10 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/13 16:06:43 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/16 15:54:52 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	here_doucument(t_cmd **cmd, int fd, char **envp)
+int	here_document(t_cmd **cmd, int fd)
 {
 	char	*str;
 
-	dup2(fd, 0);
-	fd = open(".tmp", O_CREAT | O_TRUNC | O_WRONLY);
 	while (1)
 	{
 		str = readline("heredoc> ");
 		if (strcmp(str, (*cmd)->next->word[0]) == 0)
-		if (strcmp(str, (*cmd)->next->word[0]) == 0 && (*cmd)->next->word[1] == NULL)
 		{
-			free(str);
-			break ;
+			if ((*cmd)->next->word[1] == NULL)
+			{
+				free(str);
+				break ;
+			}
 		}
-		free(str);
 		write(fd, str, ft_strlen(str));
 		write(fd, "\n", 1);
+		free(str);
 	}
 	(*cmd)->word = ft_arrjoinstr((*cmd)->word, ".tmp");
-	exec_builtin(*cmd, envp);
-	unlink(".tmp");
-	return (fd);
+	// dup2(fd, 0);
+	// close(fd);
+	// if (check_builtin(*cmd))
+	// 	exec_builtin(*cmd, envp);
+	return (0);
 }
 
 int	redir_process(t_cmd **cmd, char **envp)
@@ -46,23 +48,35 @@ int	redir_process(t_cmd **cmd, char **envp)
 
 	head = *cmd;
 	i = 0;
+	flag = 0;
+	if ((*cmd)->p_type == 2)
+		here_document(cmd, set_redir_fd(cmd));
+	*cmd = (*cmd)->next;
 	while ((*cmd)->next && (*cmd)->p_type != 0)
 	{
 		flag = 0;
 		fd[i] = set_redir_fd(cmd);
-		if ((*cmd)->p_type == 1)
+		if ((*cmd)->p_type == 1 || (*cmd)->p_type == 2)
 		{
 			flag = 1;
 			dup2(fd[i], 0);
 		}
 		else
 			dup2(fd[i], 1);
-		if (!flag && check_builtin(head))
-			exec_builtin(head, envp);
+		if (!flag)
+		{
+			if (check_builtin(head))
+				exec_builtin(head, envp);
+		}
+		close(fd[i++]);
 		*cmd = (*cmd)->next;
 	}
-	if (flag && check_builtin(head))
-		exec_builtin(head, envp);
+	if (flag || head->p_type == 2)
+	{
+		if (check_builtin(head))
+			exec_builtin(head, envp);
+	}
+	unlink(".tmp");
 	return (0);
 }
 
@@ -78,7 +92,7 @@ int	pipe_redir(t_cmd **cmd, char **envp, int *fd, int n)
 			set_pipe_fd(cmd, fd, n, &i);
 			if ((*cmd)->p_type > 0)
 				redir_process(cmd, envp);
-			else
+			else if (check_builtin(*cmd))
 				exec_builtin(*cmd, envp);
 			exit(1);
 		}

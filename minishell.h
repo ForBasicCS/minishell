@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:35:53 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/13 16:06:07 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/16 15:47:15 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	remove_list(t_list *environ, char *look);
 void	clear_list(t_list **lst);
 
 /* in exec dir */
-int		here_doucument(t_cmd **cmd, int fd, char **envp);
+// int		here_document(t_cmd **cmd, char **envp, int fd);
 int		check_builtin(t_cmd *cmd);
 int		exec_builtin(t_cmd *cmd, char **envp);
 int		exec_pipe(t_cmd **cmd, char **envp);
