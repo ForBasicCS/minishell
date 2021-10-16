@@ -6,7 +6,7 @@
 /*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 14:40:48 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/12 14:11:19 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/16 16:31:50 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,25 @@ int	exec_builtin(t_cmd *cmd, char **envp)
 		return (ft_unset(cmd));
 	else
 		return (ft_bin(cmd, envp));
+}
+
+int	exec_cmd(t_cmd **cmd, char **envp)
+{
+	int	ret;
+
+	ret = 0;
+	while (*cmd)
+	{
+		if ((*cmd)->next == NULL && (*cmd)->prev == NULL)
+		{
+			if (check_builtin(*cmd))
+				ret = exec_builtin(*cmd, envp);
+		}
+		else
+			ret = exec_pipe(cmd, envp);
+		if ((*cmd)->next == NULL)
+			break ;
+		*cmd = (*cmd)->next;
+	}
+	return (ret);
 }

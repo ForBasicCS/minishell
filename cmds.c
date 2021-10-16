@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 16:46:11 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/09 16:14:11 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/16 16:24:20 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	go_head_cmd(t_cmd **cmd)
 		*cmd = (*cmd)->prev;
 }
 
-void	clear_cmd(t_cmd **cmd)
+void	clear_cmd(t_cmd **cmd, char *str)
 {
 	int		i;
 	t_cmd	*tmp;
@@ -35,6 +35,8 @@ void	clear_cmd(t_cmd **cmd)
 		*cmd = tmp;
 	}
 	free(*cmd);
+	add_history(str);
+	free(str);
 }
 
 //원래의 cmd에 새로운 cmd를 추가하고, 새로운 cmd를 가리키도록 수정

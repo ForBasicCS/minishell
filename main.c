@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:27:42 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/16 14:59:47 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/16 16:48:41 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ int	main(int argc, char *argv[], char **envp)
 
 	if (argc > 1 || argv == NULL)
 		return (1);
-	init_envp(envp);
-	set_signal();
+	pre_process(envp);
 	while (!ret)
 	{
 		str = readline("Minishell> ");
@@ -37,24 +36,8 @@ int	main(int argc, char *argv[], char **envp)
 		if (parsing(&cmd, str))
 			printf("unvalid command\n");
 		else
-		{
-			while (cmd)
-			{
-				if (cmd->next == NULL && cmd->prev == NULL)
-				{
-					if (check_builtin(cmd))
-						ret = exec_builtin(cmd, envp);
-				}
-				else
-					ret = exec_pipe(&cmd, envp);
-				if (cmd->next == NULL)
-					break ;
-				cmd = cmd->next;
-			}
-		}
-		clear_cmd(&cmd);
-		add_history(str);
-		free(str);
+			ret = exec_cmd(&cmd, envp);
+		clear_cmd(&cmd, str);
 	}
 	clear_list(&g_environ);
 	return (0);

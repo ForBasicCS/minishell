@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:35:53 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/16 16:19:48 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/16 16:48:44 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_cmd
 }t_cmd;
 
 void	init_data(t_cmd	*cmd);
-void	init_envp(char **envp);
+void	pre_process(char **envp);
 
 int		is_pipe(char *str);
 int		parsing(t_cmd **cmd, char *str);
@@ -62,7 +62,7 @@ void	free_ctrl_d(t_cmd *cmd);
 /* cmds function */
 void	go_head_cmd(t_cmd **cmd);
 void	remove_cmd(t_cmd **cmd);
-void	clear_cmd(t_cmd **cmd);
+void	clear_cmd(t_cmd **cmd, char *str);
 void	add_cmd(t_cmd **cmd);
 
 /* list function */
@@ -75,6 +75,7 @@ void	clear_list(t_list **lst);
 int		check_builtin(t_cmd *cmd);
 int		exec_builtin(t_cmd *cmd, char **envp);
 int		exec_pipe(t_cmd **cmd, char **envp);
+int		exec_cmd(t_cmd **cmd, char **envp);
 
 /* in builtin dir */
 int		ft_echo(t_cmd *cmd);

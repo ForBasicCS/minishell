@@ -3,14 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 20:06:10 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/16 16:04:54 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/16 16:44:05 by minchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	set_flag(t_cmd **cmd)
+{
+	int	i;
+	int	fd[250];
+	int	flag;
+
+	flag = 0;
+	i = 0;
+	fd[i] = set_redir_fd(cmd);
+	if ((*cmd)->p_type == 1 || (*cmd)->p_type == 2)
+	{
+		flag = 1;
+		dup2(fd[i], 0);
+	}
+	else
+		dup2(fd[i], 1);
+	close(fd[i++]);
+	return (flag);
+}
 
 int	here_document(t_cmd **cmd, int fd)
 {
@@ -37,13 +57,10 @@ int	here_document(t_cmd **cmd, int fd)
 
 int	redir_process(t_cmd **cmd, char **envp)
 {
-	int		i;
-	int		fd[250];
 	int		flag;
 	t_cmd	*head;
 
 	head = *cmd;
-	i = 0;
 	flag = 0;
 	if ((*cmd)->p_type == 2)
 	{
@@ -52,23 +69,13 @@ int	redir_process(t_cmd **cmd, char **envp)
 	}
 	while ((*cmd)->next && (*cmd)->p_type != 0)
 	{
-		flag = 0;
-		fd[i] = set_redir_fd(cmd);
-		if ((*cmd)->p_type == 1 || (*cmd)->p_type == 2)
-		{
-			flag = 1;
-			dup2(fd[i], 0);
-		}
-		else
-			dup2(fd[i], 1);
-		if (!flag && head->p_type != 2)
-			if (check_builtin(head))
-				exec_builtin(head, envp);
+		flag = set_flag(cmd);
+		if (!flag && head->p_type != 2 && check_builtin(head))
+			exec_builtin(head, envp);
 		*cmd = (*cmd)->next;
 	}
-	if (flag || head->p_type == 2)
-		if (check_builtin(head))
-			exec_builtin(head, envp);
+	if ((flag || head->p_type == 2) && check_builtin(head))
+		exec_builtin(head, envp);
 	unlink(".tmp");
 	return (0);
 }
