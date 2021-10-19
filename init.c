@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 16:58:52 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/16 16:48:56 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/18 19:43:33 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	init_data(t_cmd	*cmd)
 {
-	
 	cmd->p_type = -1;
 	cmd->quote = 0;
 	cmd->word = NULL;

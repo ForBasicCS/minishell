@@ -3,32 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 20:06:10 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/16 16:44:05 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/19 16:40:44 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	set_flag(t_cmd **cmd)
+int	set_flag(t_cmd **cmd, int *fd)
 {
-	int	i;
-	int	fd[250];
 	int	flag;
 
 	flag = 0;
-	i = 0;
-	fd[i] = set_redir_fd(cmd);
+	*fd = set_redir_fd(cmd);
 	if ((*cmd)->p_type == 1 || (*cmd)->p_type == 2)
 	{
 		flag = 1;
-		dup2(fd[i], 0);
+		dup2(*fd, 0);
 	}
 	else
-		dup2(fd[i], 1);
-	close(fd[i++]);
+		dup2(*fd, 1);
+	close(*fd);
 	return (flag);
 }
 
@@ -57,6 +54,7 @@ int	here_document(t_cmd **cmd, int fd)
 
 int	redir_process(t_cmd **cmd, char **envp)
 {
+	int		fd;
 	int		flag;
 	t_cmd	*head;
 
@@ -69,7 +67,7 @@ int	redir_process(t_cmd **cmd, char **envp)
 	}
 	while ((*cmd)->next && (*cmd)->p_type != 0)
 	{
-		flag = set_flag(cmd);
+		flag = set_flag(cmd, &fd);
 		if (!flag && head->p_type != 2 && check_builtin(head))
 			exec_builtin(head, envp);
 		*cmd = (*cmd)->next;
