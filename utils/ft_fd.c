@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:00:14 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/16 14:48:08 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/19 17:19:37 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	set_redir_fd(t_cmd **cmd)
 		fd = open(".tmp", O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	else if ((*cmd)->p_type == 3)
 		fd = open((*cmd)->next->word[0],
-				O_RDWR | O_CREAT | S_IROTH, 0644);
+				O_RDWR | O_CREAT | O_TRUNC | S_IROTH, 0644);
 	else if ((*cmd)->p_type == 4)
 		fd = open((*cmd)->next->word[0],
 				O_RDWR | O_CREAT | O_APPEND | S_IROTH, 0644);

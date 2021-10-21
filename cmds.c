@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 16:46:11 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/16 17:22:32 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/21 12:25:02 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,16 @@ void	add_cmd(t_cmd **cmd)
 		new->prev = *cmd;
 	}
 	*cmd = new;
+}
+
+void	remove_cmd(t_cmd **cmd)
+{
+	t_cmd	*tmp;
+
+	if (*cmd)
+	{
+		tmp = (*cmd)->next;
+		free(*cmd);
+		*cmd = tmp;
+	}
 }
