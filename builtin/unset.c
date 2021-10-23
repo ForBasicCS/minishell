@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 15:04:50 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/23 12:56:45 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/23 20:07:15 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ static int	check_param(char *cmd_word)
 static int	unset_env(t_cmd *cmd, int ret, int i)
 {
 	if (ft_isdigit(cmd->word[i][0]) && ft_atoi(cmd->word[i], &i) != -1)
-		return (export_unset_return(ret));
+		return (ret);
 	remove_list(cmd->environ, cmd->word[i]);
-	return (export_unset_return(ret));
+	return (ret);
 }
 
 int	ft_unset(t_cmd *cmd)

@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:35:53 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/23 13:26:31 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/23 14:59:21 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ char	*find_env_value(char *env_key, t_list *environ);
 t_list	*find_env(char *env_key, t_list *env);
 char	*make_path(char *path_a, char *path_b);
 char	*front_of_env(char *path, int dollar_sign);
-int		export_unset_return(int ret);
 void	none_ctrl_d(void);
 void	set_signal(void);
 char	*ft_strjoinchr(char *src, int ch);

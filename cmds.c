@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 16:46:11 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/23 12:59:18 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/23 23:20:46 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,12 @@ void	clear_cmd(t_cmd **cmd, char **str)
 	{
 		i = -1;
 		tmp = (*cmd)->prev;
-		while (++i < (*cmd)->cmd_num + 1)
-			free((*cmd)->word[i]);
-		free((*cmd)->word);
+		if ((*cmd)->word != NULL)
+		{
+			while (++i < (*cmd)->cmd_num + 1)
+				free((*cmd)->word[i]);
+			free((*cmd)->word);
+		}
 		i = -1;
 		while ((*cmd)->path[++i] != NULL)
 			free((*cmd)->path[i]);

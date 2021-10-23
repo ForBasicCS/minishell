@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 17:44:47 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/23 12:56:29 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/23 14:59:13 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	new_env(t_cmd *cmd, int i, int ret)
 
 	tmp = ft_strchr(cmd->word[i], '=');
 	if (tmp == NULL)
-		return (export_unset_return(ret));
+		return (ret);
 	key = front_of_env(cmd->word[i], (tmp - cmd->word[i]));
 	new = find_env(key, cmd->environ);
 	free(key);
@@ -49,7 +49,7 @@ static int	new_env(t_cmd *cmd, int i, int ret)
 	}
 	else
 		ft_lstadd_back(&cmd->environ, ft_lstnew(ft_strdup(tmp)));
-	return (export_unset_return(ret));
+	return (ret);
 }	
 
 int	ft_export(t_cmd *cmd)

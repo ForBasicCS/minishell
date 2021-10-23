@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -Qunused-arguments `pkg-config --libs --cflags readline`
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address -Qunused-arguments `pkg-config --libs --cflags readline`
 
 NAME = minishell
 
@@ -20,7 +20,6 @@ SRCS =	main.c\
 		exec/exec_utils.c\
 		error/print_exec_err.c\
 		utils/find_env.c\
-		utils/builtin_util.c\
 		utils/signal_util.c\
 		utils/ft_chrdup.c\
 		utils/ft_strjoinchr.c\
