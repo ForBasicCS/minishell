@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:35:53 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/16 17:05:08 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/23 12:59:40 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # include <string.h>
 # include <fcntl.h>
 
-extern t_list	*g_environ;
+extern int	g_status;
 
 /*PIPE = |, INPUT = <, DOCUMENT = <<, OUTPUT = >, APPEND = >>*/
 typedef enum e_pipe {PIPE, INPUT, DOCUMENT, OUTPUT, APPEND}	t_pipe;
@@ -46,24 +46,23 @@ typedef struct s_cmd
 	t_list			*environ;
 	int				cmd_num;
 	char			**path;
-	int				status;
 	int				fd[2];
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }t_cmd;
 
-void	init_data(t_cmd	*cmd);
-void	pre_process(char **envp);
+void	init_data(t_cmd	*cmd, t_list *l_env);
+t_list	*pre_process(char **envp);
 
 int		is_pipe(char *str);
-int		parsing(t_cmd **cmd, char *str);
-void	free_ctrl_d(t_cmd *cmd);
+int		parsing(t_cmd **cmd, t_list *l_env, char *str);
+void	free_ctrl_d(t_cmd *cmd, t_list *env);
 
 /* cmds function */
 void	go_head_cmd(t_cmd **cmd);
 void	remove_cmd(t_cmd **cmd);
 void	clear_cmd(t_cmd **cmd, char **str);
-void	add_cmd(t_cmd **cmd);
+void	add_cmd(t_cmd **cmd, t_list *l_env);
 
 /* list function */
 int		compare(t_list *environ, char *str);

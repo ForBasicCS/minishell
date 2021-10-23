@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 16:46:11 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/21 12:25:02 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/23 12:59:18 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ void	clear_cmd(t_cmd **cmd, char **str)
 }
 
 //원래의 cmd에 새로운 cmd를 추가하고, 새로운 cmd를 가리키도록 수정
-void	add_cmd(t_cmd **cmd)
+void	add_cmd(t_cmd **cmd, t_list *l_env)
 {
 	t_cmd	*new;
 
 	new = (t_cmd *)malloc(sizeof(t_cmd));
-	init_data(new);
+	init_data(new, l_env);
 	if (*cmd)
 	{
 		(*cmd)->next = new;

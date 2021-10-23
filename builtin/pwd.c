@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 14:58:58 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/07 13:03:22 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/23 12:56:35 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ int	ft_pwd(t_cmd *cmd)
 	pwd = getcwd(0, 1024);
 	printf("%s\n", pwd);
 	free(pwd);
-	cmd->status = 0;
+	g_status = 0;
 	return (0);
 }

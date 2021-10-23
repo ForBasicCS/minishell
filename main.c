@@ -3,26 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:27:42 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/16 17:23:05 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/23 13:05:02 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_list	*g_environ;
+int	g_status;
 
 int	main(int argc, char *argv[], char **envp)
 {
 	static int	ret;
 	char		*str;
 	t_cmd		*cmd;
+	t_list		*l_env;
 
 	if (argc > 1 || argv == NULL)
 		return (1);
-	pre_process(envp);
+	l_env = pre_process(envp);
 	while (!ret)
 	{
 		str = readline("Minishell> ");
@@ -32,13 +33,13 @@ int	main(int argc, char *argv[], char **envp)
 			exit(1);
 		}
 		cmd = (t_cmd *)malloc(sizeof(t_cmd));
-		init_data(cmd);
-		if (parsing(&cmd, str))
+		init_data(cmd, l_env);
+		if (parsing(&cmd, l_env, str))
 			printf("unvalid command\n");
 		else
 			ret = exec_cmd(&cmd, envp);
 		clear_cmd(&cmd, &str);
 	}
-	clear_list(&g_environ);
+	clear_list(&l_env);
 	return (0);
 }

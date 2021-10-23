@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 16:45:52 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/16 16:21:07 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/23 13:00:48 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	set_word(t_cmd **cmd, char **split)
 	}
 }
 
-void	check_pipe(t_cmd **cmd, char **split)
+void	check_pipe(t_cmd **cmd, t_list *l_env, char **split)
 {
 	int	i;
 	int	j;
@@ -73,14 +73,14 @@ void	check_pipe(t_cmd **cmd, char **split)
 		{
 			(*cmd)->cmd_num--;
 			(*cmd)->p_type = type;
-			add_cmd(cmd);
+			add_cmd(cmd, l_env);
 		}
 	}
 	go_head_cmd(cmd);
 	set_word(cmd, split);
 }
 
-int	parsing(t_cmd **cmd, char *str)
+int	parsing(t_cmd **cmd, t_list *l_env, char *str)
 {
 	int		c;
 	char	*tmp;
@@ -102,7 +102,7 @@ int	parsing(t_cmd **cmd, char *str)
 		else
 			str++;
 	}
-	check_pipe(cmd, split);
+	check_pipe(cmd, l_env, split);
 	go_head_cmd(cmd);
 	ft_free(split);
 	return (0);

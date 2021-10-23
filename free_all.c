@@ -6,15 +6,15 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 17:35:31 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/07 13:12:42 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/23 12:53:49 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_ctrl_d(t_cmd *cmd)
+void	free_ctrl_d(t_cmd *cmd, t_list *l_env)
 {
-	clear_list(&g_environ);
+	clear_list(&l_env);
 	free(cmd);
 	exit(0);
 }

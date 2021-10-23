@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:25:01 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/07 13:03:06 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/23 12:56:10 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ int	ft_env(t_cmd *cmd)
 		printf("%s\n", (char *)tmp->content);
 		tmp = tmp->next;
 	}
-	cmd->status = 0;
+	g_status = 0;
 	return (0);
 }

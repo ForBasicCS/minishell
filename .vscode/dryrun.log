@@ -1,0 +1,34 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/Users/nhs/minishell'
+gcc -Wall -Wextra -Werror -Qunused-arguments `pkg-config --libs --cflags readline` -c main.c -o main.o -I ./
+gcc -Wall -Wextra -Werror -Qunused-arguments `pkg-config --libs --cflags readline` -c parsing.c -o parsing.o -I ./
+gcc -Wall -Wextra -Werror -Qunused-arguments `pkg-config --libs --cflags readline` -c init.c -o init.o -I ./
+gcc -Wall -Wextra -Werror -Qunused-arguments `pkg-config --libs --cflags readline` -c ft_list.c -o ft_list.o -I ./
+gcc -Wall -Wextra -Werror -Qunused-arguments `pkg-config --libs --cflags readline` -c free_all.c -o free_all.o -I ./
+gcc -Wall -Wextra -Werror -Qunused-arguments `pkg-config --libs --cflags readline` -c cmds.c -o cmds.o -I ./
+gcc -Wall -Wextra -Werror -Qunused-arguments `pkg-config --libs --cflags readline` -c builtin/echo.c -o builtin/echo.o -I ./
+gcc -Wall -Wextra -Werror -Qunused-arguments `pkg-config --libs --cflags readline` -c builtin/cd.c -o builtin/cd.o -I ./
+gcc -Wall -Wextra -Werror -Qunused-arguments `pkg-config --libs --cflags readline` -c builtin/pwd.c -o builtin/pwd.o -I ./
+gcc -Wall -Wextra -Werror -Qunused-arguments `pkg-config --libs --cflags readline` -c builtin/env.c -o builtin/env.o -I ./
+gcc -Wall -Wextra -Werror -Qunused-arguments `pkg-config --libs --cflags readline` -c builtin/exit.c -o builtin/exit.o -I ./
+gcc -Wall -Wextra -Werror -Qunused-arguments `pkg-config --libs --cflags readline` -c builtin/export.c -o builtin/export.o -I ./
+gcc -Wall -Wextra -Werror -Qunused-arguments `pkg-config --libs --cflags readline` -c builtin/unset.c -o builtin/unset.o -I ./
+gcc -Wall -Wextra -Werror -Qunused-arguments `pkg-config --libs --cflags readline` -c exec/exec.c -o exec/exec.o -I ./
+gcc -Wall -Wextra -Werror -Qunused-arguments `pkg-config --libs --cflags readline` -c exec/exec_pipe.c -o exec/exec_pipe.o -I ./
+gcc -Wall -Wextra -Werror -Qunused-arguments `pkg-config --libs --cflags readline` -c exec/exec_utils.c -o exec/exec_utils.o -I ./
+gcc -Wall -Wextra -Werror -Qunused-arguments `pkg-config --libs --cflags readline` -c error/print_exec_err.c -o error/print_exec_err.o -I ./
+gcc -Wall -Wextra -Werror -Qunused-arguments `pkg-config --libs --cflags readline` -c utils/find_env.c -o utils/find_env.o -I ./
+gcc -Wall -Wextra -Werror -Qunused-arguments `pkg-config --libs --cflags readline` -c utils/builtin_util.c -o utils/builtin_util.o -I ./
+gcc -Wall -Wextra -Werror -Qunused-arguments `pkg-config --libs --cflags readline` -c utils/signal_util.c -o utils/signal_util.o -I ./
+ 
+gcc -Wall -Wextra -Werror -Qunused-arguments `pkg-config --libs --cflags readline` -c utils/ft_chrdup.c -o utils/ft_chrdup.o -I ./
+gcc -Wall -Wextra -Werror -Qunused-arguments `pkg-config --libs --cflags readline` -c utils/ft_strjoinchr.c -o utils/ft_strjoinchr.o -I ./
+gcc -Wall -Wextra -Werror -Qunused-arguments `pkg-config --libs --cflags readline` -c utils/ft_strdown.c -o utils/ft_strdown.o -I ./
+gcc -Wall -Wextra -Werror -Qunused-arguments `pkg-config --libs --cflags readline` -c utils/ft_fd.c -o utils/ft_fd.o -I ./
+gcc -Wall -Wextra -Werror -Qunused-arguments `pkg-config --libs --cflags readline` -c utils/ft_arrjoin.c -o utils/ft_arrjoin.o -I ./
+gcc -Wall -Wextra -Werror -Qunused-arguments `pkg-config --libs --cflags readline` -c utils/ft_strcpy_trim.c -o utils/ft_strcpy_trim.o -I ./
+gcc -Wall -Wextra -Werror -Qunused-arguments `pkg-config --libs --cflags readline` -c utils/parsing_util.c -o utils/parsing_util.o -I ./
+make bonus -C ./libft/
+gcc -Wall -Wextra -Werror -Qunused-arguments `pkg-config --libs --cflags readline` -I ./ main.o parsing.o init.o ft_list.o free_all.o cmds.o builtin/echo.o builtin/cd.o builtin/pwd.o builtin/env.o builtin/exit.o builtin/export.o builtin/unset.o exec/exec.o exec/exec_pipe.o exec/exec_utils.o error/print_exec_err.o utils/find_env.o utils/builtin_util.o utils/signal_util.o utils/ft_chrdup.o utils/ft_strjoinchr.o utils/ft_strdown.o utils/ft_fd.o utils/ft_arrjoin.o utils/ft_strcpy_trim.o utils/parsing_util.o -o minishell ./libft/libft.a
+make: Leaving directory `/Users/nhs/minishell'
+ 

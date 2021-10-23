@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 20:06:10 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/21 12:48:07 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/23 13:12:49 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int	exec_pipe(t_cmd **cmd, char **envp)
 	pipe_redir(cmd, envp, fd, n);
 	while (tmp)
 	{
-		wait(&tmp->status);
+		wait(NULL);
 		close_all(fd, n);
 		if (tmp->next == NULL)
 			break ;

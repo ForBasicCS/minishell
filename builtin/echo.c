@@ -6,15 +6,15 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:25:51 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/07 13:04:04 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/23 13:01:24 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	echo_status(t_cmd *cmd, char *env_var)
+void	echo_status(char *env_var)
 {
-	printf("%d", cmd->status);
+	printf("%d", g_status);
 	if (env_var[2] != 0)
 		printf("%s", &(env_var[2]));
 }
@@ -38,7 +38,7 @@ int	check_option_n(char **ins, int *n_flag)
 	return (0);
 }
 
-void	echo_env(t_cmd *cmd, char *env_var, t_list *environ)
+void	echo_env(char *env_var, t_list *environ)
 {
 	char	*env_word;
 	int		dollar_sign;
@@ -52,7 +52,7 @@ void	echo_env(t_cmd *cmd, char *env_var, t_list *environ)
 			printf("%c", env_var[i++]);
 	}
 	if (env_var[dollar_sign + 1] == '?')
-		echo_status(cmd, env_var);
+		echo_status(env_var);
 	env_word = find_env_value(&(env_var[dollar_sign + 1]), environ);
 	if (env_word != NULL)
 		printf("%s", env_word);
@@ -74,7 +74,7 @@ int	ft_echo(t_cmd *cmd)
 	{
 		if (ft_strchr(cmd->word[i], '$')
 			&& *(ft_strchr(cmd->word[i], '$') + 1) != 0)
-			echo_env(cmd, cmd->word[i], cmd->environ);
+			echo_env(cmd->word[i], cmd->environ);
 		else
 			printf("%s", cmd->word[i]);
 		i++;
@@ -83,6 +83,6 @@ int	ft_echo(t_cmd *cmd)
 	}
 	if (n_flag != 1)
 		printf("\n");
-	cmd->status = 0;
+	g_status = 0;
 	return (0);
 }
