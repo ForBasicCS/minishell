@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 20:06:10 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/23 20:16:13 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/24 00:35:10 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,11 @@ int	pipe_redir(t_cmd **cmd, char **envp, int *fd, int n)
 			if ((*cmd)->p_type > 0)
 				redir_process(cmd, envp);
 			else if (check_builtin(*cmd))
-				exec_builtin(*cmd, envp);
-			exit(1);
+				g_status = exec_builtin(*cmd, envp);
+			exit(g_status);
 		}
 		if ((*cmd)->p_type > 0)
-			wait(NULL);
+			wait(&g_status);
 		while ((*cmd)->p_type > 0)
 			*cmd = (*cmd)->next;
 		if ((*cmd)->p_type == 0)
@@ -104,7 +104,7 @@ int	pipe_redir(t_cmd **cmd, char **envp, int *fd, int n)
 			break ;
 		*cmd = (*cmd)->next;
 	}
-	return (0);
+	return (g_status);
 }
 
 int	exec_pipe(t_cmd **cmd, char **envp)
@@ -122,7 +122,7 @@ int	exec_pipe(t_cmd **cmd, char **envp)
 	pipe_redir(cmd, envp, fd, n);
 	while (tmp)
 	{
-		wait(NULL);
+		wait(&g_status);
 		close_all(fd, n);
 		if (tmp->next == NULL)
 			break ;
@@ -130,5 +130,5 @@ int	exec_pipe(t_cmd **cmd, char **envp)
 	}
 	if (n)
 		free(fd);
-	return (0);
+	return (g_status);
 }
