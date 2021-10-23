@@ -8,14 +8,14 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Sat Oct 23 12:00:45 2021
+# Make data base, printed on Sat Oct 23 13:26:57 2021
 
 # Variables
 
- 
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
+ 
 ?F = $(notdir $?)
 # environment
 VSCODE_LOG_NATIVE = false
@@ -65,7 +65,7 @@ SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.VnxNPLnH3o/Listeners
 DISPLAY = /private/tmp/com.apple.launchd.3inpCtozyD/org.macports:0
 # environment
 VSCODE_PIPE_LOGGING = true
-# makefile (from `Makefile', line 34)
+# makefile (from `Makefile', line 33)
 OBJS = $(SRCS:.c=.o)
 # environment
 PWD = /Users/nhs/minishell
@@ -96,7 +96,7 @@ MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
 # makefile (from `Makefile', line 6)
-SRCS = main.c parsing.c init.c ft_list.c free_all.c cmds.c builtin/echo.c builtin/cd.c builtin/pwd.c builtin/env.c builtin/exit.c builtin/export.c builtin/unset.c exec/exec.c exec/exec_pipe.c exec/exec_utils.c error/print_exec_err.c utils/find_env.c utils/builtin_util.c utils/signal_util.c utils/ft_chrdup.c utils/ft_strjoinchr.c utils/ft_strdown.c utils/ft_fd.c utils/ft_arrjoin.c utils/ft_strcpy_trim.c utils/parsing_util.c 
+SRCS = main.c parsing.c init.c ft_list.c cmds.c builtin/echo.c builtin/cd.c builtin/pwd.c builtin/env.c builtin/exit.c builtin/export.c builtin/unset.c exec/exec.c exec/exec_pipe.c exec/exec_utils.c error/print_exec_err.c utils/find_env.c utils/builtin_util.c utils/signal_util.c utils/ft_chrdup.c utils/ft_strjoinchr.c utils/ft_strdown.c utils/ft_fd.c utils/ft_arrjoin.c utils/ft_strcpy_trim.c utils/parsing_util.c 
 # environment
 SHLVL = 1
 # makefile (from `Makefile', line 1)
@@ -168,14 +168,14 @@ VSCODE_PID = 34632
 
 # Directories
 
-# . (device 16777232, inode 8000562): 17 files, no impossibilities.
+# . (device 16777232, inode 8000562): 16 files, no impossibilities.
 
-# 17 files, no impossibilities in 1 directories.
+# 16 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
 %.o: %.c
-#  commands to execute (from `Makefile', line 37):
+#  commands to execute (from `Makefile', line 36):
 	$(CC) $(CFLAGS) -c $< -o $@ -I ./
 	
 
@@ -213,7 +213,7 @@ exec/exec.o:
 # Not a target:
 main.c:
 #  Implicit rule search has been done.
-#  Last modified 2021-10-18 19:43:03
+#  Last modified 2021-10-23 13:26:15
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -224,7 +224,6 @@ utils/ft_strcpy_trim.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
- 
 
 # Not a target:
 utils/ft_chrdup.o:
@@ -253,7 +252,7 @@ builtin/cd.o:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2021-10-18 19:43:03
+#  Last modified 2021-10-23 13:26:46
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -283,20 +282,14 @@ builtin/export.o:
 #  Modification time never checked.
 #  File has not been updated.
 
-# Not a target:
-free_all.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-minishell: main.o parsing.o init.o ft_list.o free_all.o cmds.o builtin/echo.o builtin/cd.o builtin/pwd.o builtin/env.o builtin/exit.o builtin/export.o builtin/unset.o exec/exec.o exec/exec_pipe.o exec/exec_utils.o error/print_exec_err.o utils/find_env.o utils/builtin_util.o utils/signal_util.o utils/ft_chrdup.o utils/ft_strjoinchr.o utils/ft_strdown.o utils/ft_fd.o utils/ft_arrjoin.o utils/ft_strcpy_trim.o utils/parsing_util.o
+minishell: main.o parsing.o init.o ft_list.o cmds.o builtin/echo.o builtin/cd.o builtin/pwd.o builtin/env.o builtin/exit.o builtin/export.o builtin/unset.o exec/exec.o exec/exec_pipe.o exec/exec_utils.o error/print_exec_err.o utils/find_env.o utils/builtin_util.o utils/signal_util.o utils/ft_chrdup.o utils/ft_strjoinchr.o utils/ft_strdown.o utils/ft_fd.o utils/ft_arrjoin.o utils/ft_strcpy_trim.o utils/parsing_util.o
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/4=0%
-#  commands to execute (from `Makefile', line 40):
+#  commands to execute (from `Makefile', line 39):
 	@ make bonus -C ./libft/
 	$(CC) $(CFLAGS) -I ./ $^ -o $@ ./libft/libft.a
 	
@@ -305,7 +298,7 @@ fclean: clean
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 50):
+#  commands to execute (from `Makefile', line 49):
 	rm -rf $(NAME)
 	@ make fclean -C ./libft
 	
@@ -320,6 +313,7 @@ utils/find_env.o:
 cmds.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
+ 
 #  File has not been updated.
 
 # Not a target:
@@ -337,7 +331,7 @@ clean:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 46):
+#  commands to execute (from `Makefile', line 45):
 	rm -rf $(OBJS)
 	@ make clean -C ./libft
 	
@@ -369,7 +363,6 @@ utils/signal_util.o:
 # Not a target:
 exec/exec_utils.o:
 #  Implicit rule search has not been done.
- 
 #  Modification time never checked.
 #  File has not been updated.
 
@@ -403,9 +396,10 @@ main.o: main.c
 # ? := main.c
 # variable set hash-table stats:
 # Load=8/32=25%, Rehash=0, Collisions=1/14=7%
-#  commands to execute (from `Makefile', line 37):
+#  commands to execute (from `Makefile', line 36):
 	$(CC) $(CFLAGS) -c $< -o $@ -I ./
 	
+ 
 
 # Not a target:
 utils/ft_fd.o:
@@ -444,7 +438,7 @@ utils/ft_arrjoin.o:
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=36/1024=4%, Rehash=0, Collisions=4/83=5%
+# Load=35/1024=3%, Rehash=0, Collisions=4/81=5%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -456,6 +450,6 @@ utils/ft_arrjoin.o:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sat Oct 23 12:00:45 2021
+# Finished Make data base on Sat Oct 23 13:26:57 2021
 
  

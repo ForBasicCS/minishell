@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:27:42 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/23 13:05:02 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/23 13:26:15 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,7 @@ int	main(int argc, char *argv[], char **envp)
 	{
 		str = readline("Minishell> ");
 		if (str == NULL)
-		{
-			ft_putstr_fd("\033[2D", 1);
-			exit(1);
-		}
+			none_ctrl_d();
 		cmd = (t_cmd *)malloc(sizeof(t_cmd));
 		init_data(cmd, l_env);
 		if (parsing(&cmd, l_env, str))

@@ -7,7 +7,6 @@ SRCS =	main.c\
 		parsing.c\
 		init.c\
 		ft_list.c\
-		free_all.c\
 		cmds.c\
 		builtin/echo.c\
 		builtin/cd.c\

@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:35:53 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/23 12:59:40 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/23 13:26:31 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ t_list	*pre_process(char **envp);
 
 int		is_pipe(char *str);
 int		parsing(t_cmd **cmd, t_list *l_env, char *str);
-void	free_ctrl_d(t_cmd *cmd, t_list *env);
 
 /* cmds function */
 void	go_head_cmd(t_cmd **cmd);
@@ -94,6 +93,7 @@ t_list	*find_env(char *env_key, t_list *env);
 char	*make_path(char *path_a, char *path_b);
 char	*front_of_env(char *path, int dollar_sign);
 int		export_unset_return(int ret);
+void	none_ctrl_d(void);
 void	set_signal(void);
 char	*ft_strjoinchr(char *src, int ch);
 char	*ft_chrdup(int ch);

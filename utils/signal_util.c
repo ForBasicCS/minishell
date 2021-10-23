@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   signal_util.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minchoi <minchoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 14:19:14 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/16 16:30:08 by minchoi          ###   ########.fr       */
+/*   Updated: 2021/10/23 13:26:23 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	none_ctrl_d(void)
+{
+	ft_putstr_fd("\033[2D", 1);
+	exit(1);
+}
 
 void	handler_int(pid_t pid)
 {
