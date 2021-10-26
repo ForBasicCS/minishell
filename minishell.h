@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:35:53 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/25 22:51:03 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/26 19:58:50 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ void	clear_list(t_list **lst);
 /* in exec dir */
 // int		here_document(t_cmd **cmd, char **envp, int fd);
 int		check_builtin(t_cmd *cmd);
-int		exec_builtin(t_cmd *cmd, char **envp);
-int		exec_pipe(t_cmd **cmd, char **envp);
-int		exec_cmd(t_cmd **cmd, char **envp);
+int		exec_builtin(t_cmd *cmd);
+int		exec_pipe(t_cmd **cmd);
+int		exec_cmd(t_cmd **cmd);
 
 /* in builtin dir */
 int		ft_echo(t_cmd *cmd);
@@ -95,13 +95,15 @@ char	*front_of_env(char *path, int dollar_sign);
 void	none_ctrl_d(void);
 void	set_signal(void);
 char	**ft_arrjoinstr(char **s1, char *s2);
+void	ft_strcpy_trim(char *dest, char *s1, char *s2, char trim);
 int		is_pipe(char *str);
 int		is_valid(char *str);
-void	ft_strcpy_trim(char *dest, char *s1, char *s2, char trim);
+int		check_syntax(char **split);
 
 int		set_redir_fd(t_cmd **cmd);
 void	set_pipe_fd(t_cmd **cmd, int *fd, int n, int *i);
 int		create_fd(t_cmd **cmd, int **fd);
 void	close_all(int fd[], int n);
+int		set_flag(t_cmd **cmd, int *fd);
 
 #endif

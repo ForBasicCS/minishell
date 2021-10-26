@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:27:42 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/26 14:21:45 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/26 19:59:09 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int	main(int argc, char *argv[], char **envp)
 		cmd = (t_cmd *)malloc(sizeof(t_cmd));
 		init_data(cmd, l_env);
 		if (parsing(&cmd, l_env, str))
-			printf("unvalid command\n");
+			printf("Minishell: syntax error\n");
 		else
-			ret = exec_cmd(&cmd, envp);
+			ret = exec_cmd(&cmd);
 		clear_cmd(&cmd, &str);
 	}
 	clear_list(&l_env);

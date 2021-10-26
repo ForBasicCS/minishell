@@ -6,26 +6,26 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 14:40:48 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/26 18:52:10 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/26 19:58:35 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_bin_child(char *path, t_cmd *cmd, char **envp)
+int	ft_bin_child(char *path, t_cmd *cmd)
 {
 	pid_t	pid;
 
 	pid = fork();
 	if (pid == 0)
-		execve(path, cmd->word, envp);
+		execve(path, cmd->word, NULL);
 	waitpid(pid, &g_status, 0);
 	if (g_status == 2 || g_status == 3)
 		g_status += 128;
 	return (0);
 }
 
-int	ft_bin(t_cmd *cmd, char **envp)
+int	ft_bin(t_cmd *cmd)
 {
 	int			i;
 	char		*tmp;
@@ -34,14 +34,14 @@ int	ft_bin(t_cmd *cmd, char **envp)
 
 	i = -1;
 	if (stat(cmd->word[0], &s) == 0)
-		return (ft_bin_child(cmd->word[0], cmd, envp));
+		return (ft_bin_child(cmd->word[0], cmd));
 	tmp = ft_strjoin("/", cmd->word[0]);
 	while (cmd->path[++i])
 	{
 		new_path = ft_strjoin(cmd->path[i], tmp);
 		if (stat(new_path, &s) == 0)
 		{
-			ft_bin_child(new_path, cmd, envp);
+			ft_bin_child(new_path, cmd);
 			free(tmp);
 			free(new_path);
 			return (0);
@@ -52,7 +52,7 @@ int	ft_bin(t_cmd *cmd, char **envp)
 	return (1);
 }
 
-int	exec_builtin(t_cmd *cmd, char **envp)
+int	exec_builtin(t_cmd *cmd)
 {
 	char	*cmd_var;
 
@@ -72,10 +72,10 @@ int	exec_builtin(t_cmd *cmd, char **envp)
 	else if (ft_strcmp(cmd_var, "unset") == 0)
 		return (ft_unset(cmd));
 	else
-		return (ft_bin(cmd, envp));
+		return (ft_bin(cmd));
 }
 
-int	exec_cmd(t_cmd **cmd, char **envp)
+int	exec_cmd(t_cmd **cmd)
 {
 	int	ret;
 
@@ -87,12 +87,12 @@ int	exec_cmd(t_cmd **cmd, char **envp)
 		if ((*cmd)->next == NULL && (*cmd)->prev == NULL)
 		{
 			if (!check_builtin(*cmd))
-				ret = exec_builtin(*cmd, envp);
+				ret = exec_builtin(*cmd);
 			else
 				print_exec_err((*cmd)->word[0], NULL, 5);
 		}
 		else
-			ret = exec_pipe(cmd, envp);
+			ret = exec_pipe(cmd);
 		if ((*cmd)->next == NULL)
 			break ;
 		*cmd = (*cmd)->next;

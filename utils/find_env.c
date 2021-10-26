@@ -17,6 +17,8 @@ char	*find_env_value(char *env_key, t_list *env)
 	char	*tmp;
 
 	tmp = NULL;
+	if (ft_strcmp(env_key, "?") == 0)
+		return (ft_itoa(g_status));
 	while (env)
 	{
 		if (ft_strncmp(env_key, (char *)env->content, ft_strlen(env_key)) == 0

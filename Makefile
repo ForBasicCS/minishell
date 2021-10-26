@@ -23,8 +23,8 @@ SRCS =	main.c\
 		utils/signal_util.c\
 		utils/ft_fd.c\
 		utils/ft_arrjoin.c\
-		utils/ft_strcpy_trim.c\
 		utils/parsing_util.c\
+		utils/ft_strcpy_trim.c
 
 OBJS = $(SRCS:.c=.o)
 

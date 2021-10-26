@@ -6,11 +6,33 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:00:14 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/26 17:55:59 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/26 19:52:14 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	set_flag(t_cmd **cmd, int *fd)
+{
+	int	flag;
+
+	flag = 0;
+	*fd = set_redir_fd(cmd);
+	if (*fd == -1)
+	{
+		g_status = 1;
+		return (-1);
+	}
+	if ((*cmd)->p_type == 1 || (*cmd)->p_type == 2)
+	{
+		flag = 1;
+		dup2(*fd, 0);
+	}
+	else
+		dup2(*fd, 1);
+	close(*fd);
+	return (flag);
+}
 
 void	close_all(int fd[], int n)
 {

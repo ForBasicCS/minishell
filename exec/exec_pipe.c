@@ -6,33 +6,11 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 20:06:10 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/26 19:07:58 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/26 20:09:50 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	set_flag(t_cmd **cmd, int *fd)
-{
-	int	flag;
-
-	flag = 0;
-	*fd = set_redir_fd(cmd);
-	if (*fd == -1)
-	{
-		g_status = 1;
-		return (-1);
-	}
-	if ((*cmd)->p_type == 1 || (*cmd)->p_type == 2)
-	{
-		flag = 1;
-		dup2(*fd, 0);
-	}
-	else
-		dup2(*fd, 1);
-	close(*fd);
-	return (flag);
-}
 
 int	here_document(t_cmd **cmd, int fd)
 {
@@ -58,7 +36,7 @@ int	here_document(t_cmd **cmd, int fd)
 	return (0);
 }
 
-int	redir_process(t_cmd **cmd, char **envp)
+int	redir_process(t_cmd **cmd)
 {
 	int		fd;
 	int		flag;
@@ -72,18 +50,31 @@ int	redir_process(t_cmd **cmd, char **envp)
 	{
 		flag = set_flag(cmd, &fd);
 		if (!flag && head->p_type != 2 && !check_builtin(head))
-			exec_builtin(head, envp);
+			exec_builtin(head);
 		*cmd = (*cmd)->next;
 	}
 	if ((flag > 0 || head->p_type == 2) && !check_builtin(head))
-		exec_builtin(head, envp);
+		exec_builtin(head);
 	if (flag == -1)
 		print_exec_err((*cmd)->word[0], NULL, 5);
 	unlink(".tmp");
 	return (g_status);
 }
 
-int	pipe_redir(t_cmd **cmd, char **envp, int *fd, int n)
+void	child_process(t_cmd **cmd, int *fd, int n, int *i)
+{
+	if (fork() == 0)
+	{
+		set_pipe_fd(cmd, fd, n, i);
+		if ((*cmd)->p_type > 0)
+			g_status = redir_process(cmd);
+		else
+			g_status = exec_builtin(*cmd);
+		exit(g_status);
+	}
+}
+
+int	pipe_redir(t_cmd **cmd, int *fd, int n)
 {
 	int		i;
 
@@ -91,17 +82,7 @@ int	pipe_redir(t_cmd **cmd, char **envp, int *fd, int n)
 	while (*cmd)
 	{
 		if (!check_builtin(*cmd))
-		{
-			if (fork() == 0)
-			{
-				set_pipe_fd(cmd, fd, n, &i);
-				if ((*cmd)->p_type > 0)
-					g_status = redir_process(cmd, envp);
-				else
-					g_status = exec_builtin(*cmd, envp);
-				exit(g_status);
-			}
-		}
+			child_process(cmd, fd, n, &i);
 		else
 			print_exec_err((*cmd)->word[0], NULL, 5);
 		while ((*cmd)->p_type > 0)
@@ -115,7 +96,7 @@ int	pipe_redir(t_cmd **cmd, char **envp, int *fd, int n)
 	return (0);
 }
 
-int	exec_pipe(t_cmd **cmd, char **envp)
+int	exec_pipe(t_cmd **cmd)
 {
 	int		i;
 	int		n;
@@ -127,7 +108,7 @@ int	exec_pipe(t_cmd **cmd, char **envp)
 	while (++i < n / 2)
 		pipe(fd + i * 2);
 	tmp = *cmd;
-	pipe_redir(cmd, envp, fd, n);
+	pipe_redir(cmd, fd, n);
 	while (tmp)
 	{
 		wait(NULL);
