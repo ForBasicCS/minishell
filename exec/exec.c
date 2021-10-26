@@ -20,6 +20,8 @@ int	ft_bin_child(char *path, t_cmd *cmd)
 	if (pid == 0)
 		execve(path, cmd->word, NULL);
 	waitpid(pid, &g_status, 0);
+	if (g_status)
+		g_status = WIFEXITED(g_status);
 	if (g_status == 2 || g_status == 3)
 		g_status += 128;
 	return (0);

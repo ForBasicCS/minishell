@@ -69,7 +69,7 @@ void	child_process(t_cmd **cmd, int *fd, int n, int *i)
 		if ((*cmd)->p_type > 0)
 			g_status = redir_process(cmd);
 		else
-			g_status = exec_builtin(*cmd);
+			exec_builtin(*cmd);
 		exit(g_status);
 	}
 }
@@ -113,6 +113,8 @@ int	exec_pipe(t_cmd **cmd)
 	{
 		if (wait(&g_status) == -1 && check_builtin(tmp))
 			g_status = 127;
+		else if (g_status % 128 == 0 && g_status)
+			g_status = WIFEXITED(g_status);			
 		close_all(fd, n);
 		tmp = tmp->next;
 	}
