@@ -33,7 +33,29 @@ char	*end_point(t_cmd **cmd, const char *str)
 	return (end);
 }
 
-void	set_word(t_cmd **cmd, char **split)
+char	*set_word(t_cmd **cmd, char *split)
+{
+	char	*tmp;
+	int		dollar;
+	char	*new_word;
+
+	tmp = NULL;
+	if (ft_strchr(split, '$') && (*cmd)->quote != '\'')
+	{
+		dollar = ft_strchr(split, '$') - split;
+		new_word = find_env_value(split + dollar + 1, (*cmd)->environ);
+		if (dollar != 0)
+			tmp = front_of_env(split, dollar);
+		new_word = make_path(tmp, new_word);
+		if (tmp != NULL)
+			free(tmp);
+	}
+	else
+		new_word = ft_strdup(split);
+	return (new_word);
+}
+
+void	align_word(t_cmd **cmd, char **split)
 {
 	int	i;
 	int	j;
@@ -45,10 +67,10 @@ void	set_word(t_cmd **cmd, char **split)
 		(*cmd)->word = (char **)malloc(sizeof(char *) * ((*cmd)->cmd_num + 1));
 		while (i < (*cmd)->cmd_num && split[j])
 		{
-			if (is_pipe(split[j]) != -1 && !(*cmd)->quote)
+			if (is_pipe(split[j]) != -1)
 				j++;
 			else
-				(*cmd)->word[i++] = ft_strdup(split[j++]);
+				(*cmd)->word[i++] = set_word(cmd, split[j++]);
 		}
 		(*cmd)->word[i] = NULL;
 		if ((*cmd)->next == NULL)
@@ -57,14 +79,18 @@ void	set_word(t_cmd **cmd, char **split)
 	}
 }
 
-void	check_pipe(t_cmd **cmd, t_list *l_env, char **split)
+int	check_pipe(t_cmd **cmd, t_list *l_env, char **split)
 {
 	int	i;
-	int	j;
 	int	type;
 
+	if (check_syntax(split))
+	{
+		g_status = 2;
+		ft_free(split);
+		return (1);
+	}
 	i = -1;
-	j = 0;
 	while (split[++i])
 	{
 		(*cmd)->cmd_num++;
@@ -77,7 +103,8 @@ void	check_pipe(t_cmd **cmd, t_list *l_env, char **split)
 		}
 	}
 	go_head_cmd(cmd);
-	set_word(cmd, split);
+	align_word(cmd, split);
+	return (0);
 }
 
 int	parsing(t_cmd **cmd, t_list *l_env, char *str)
@@ -102,7 +129,8 @@ int	parsing(t_cmd **cmd, t_list *l_env, char *str)
 		else
 			str++;
 	}
-	check_pipe(cmd, l_env, split);
+	if (check_pipe(cmd, l_env, split))
+		return (1);
 	go_head_cmd(cmd);
 	ft_free(split);
 	return (0);

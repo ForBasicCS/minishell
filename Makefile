@@ -24,9 +24,9 @@ SRCS =	main.c\
 		utils/ft_chrdup.c\
 		utils/ft_strjoinchr.c\
 		utils/ft_strdown.c\
+		utils/ft_strcpy_trim.c\
 		utils/ft_fd.c\
 		utils/ft_arrjoin.c\
-		utils/ft_strcpy_trim.c\
 		utils/parsing_util.c\
 
 OBJS = $(SRCS:.c=.o)

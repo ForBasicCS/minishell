@@ -98,9 +98,10 @@ char	*ft_strjoinchr(char *src, int ch);
 char	*ft_chrdup(int ch);
 char	*ft_strdown(char *str);
 char	**ft_arrjoinstr(char **s1, char *s2);
+void	ft_strcpy_trim(char *dest, char *s1, char *s2, char trim);
 int		is_pipe(char *str);
 int		is_valid(char *str);
-void	ft_strcpy_trim(char *dest, char *s1, char *s2, char trim);
+int		check_syntax(char **split);
 
 int		set_redir_fd(t_cmd **cmd);
 void	set_pipe_fd(t_cmd **cmd, int *fd, int n, int *i);

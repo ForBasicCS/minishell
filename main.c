@@ -32,7 +32,7 @@ int	main(int argc, char *argv[], char **envp)
 		cmd = (t_cmd *)malloc(sizeof(t_cmd));
 		init_data(cmd, l_env);
 		if (parsing(&cmd, l_env, str))
-			printf("unvalid command\n");
+			printf("Minishell: syntax error\n");
 		else
 			ret = exec_cmd(&cmd, envp);
 		clear_cmd(&cmd, &str);

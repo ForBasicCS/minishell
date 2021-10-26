@@ -48,3 +48,20 @@ int	is_pipe(char *str)
 		return (APPEND);
 	return (-1);
 }
+
+int	check_syntax(char **split)
+{
+	int	i;
+
+	i = -1;
+	while (split[++i])
+	{
+		if (is_pipe(split[i]) == 0
+			&& (i == 0 || split[i + 1] == NULL || is_pipe(split[i + 1]) != -1))
+			return (1);
+		else if (is_pipe(split[i]) > 0
+			&& (split[i + 1] == NULL || is_pipe(split[i + 1]) != -1))
+			return (1);
+	}
+	return (0);
+}
