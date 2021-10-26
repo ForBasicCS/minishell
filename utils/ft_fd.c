@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:00:14 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/19 17:19:37 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/26 17:55:59 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	set_redir_fd(t_cmd **cmd)
 {
 	int	fd;
 
-	fd = 1;
+	fd = -1;
 	if ((*cmd)->p_type == 1)
 		fd = open((*cmd)->next->word[0], O_RDONLY);
 	else if ((*cmd)->p_type == 2)

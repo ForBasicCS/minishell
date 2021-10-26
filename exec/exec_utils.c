@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 14:34:08 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/16 14:08:39 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/26 19:46:13 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ int	check_builtin(t_cmd *cmd)
 		|| ft_strcmp(cmd_var, "exit") == 0
 		|| ft_strcmp(cmd_var, "export") == 0
 		|| ft_strcmp(cmd_var, "unset") == 0)
-		return (1);
-	else if (check_bin(cmd))
-		return (1);
-	else
 		return (0);
+	else if (check_bin(cmd))
+		return (0);
+	else
+		return (1);
 }

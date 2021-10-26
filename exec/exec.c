@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 14:40:48 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/24 00:27:22 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/26 18:52:10 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	ft_bin_child(char *path, t_cmd *cmd, char **envp)
 	if (pid == 0)
 		execve(path, cmd->word, envp);
 	waitpid(pid, &g_status, 0);
+	if (g_status == 2 || g_status == 3)
+		g_status += 128;
 	return (0);
 }
 
@@ -80,10 +82,14 @@ int	exec_cmd(t_cmd **cmd, char **envp)
 	ret = 0;
 	while (*cmd)
 	{
+		if ((*cmd)->word[0] == NULL)
+			return (ret);
 		if ((*cmd)->next == NULL && (*cmd)->prev == NULL)
 		{
-			if (check_builtin(*cmd))
+			if (!check_builtin(*cmd))
 				ret = exec_builtin(*cmd, envp);
+			else
+				print_exec_err((*cmd)->word[0], NULL, 5);
 		}
 		else
 			ret = exec_pipe(cmd, envp);

@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 20:06:10 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/24 00:35:10 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/26 19:07:58 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ int	set_flag(t_cmd **cmd, int *fd)
 
 	flag = 0;
 	*fd = set_redir_fd(cmd);
+	if (*fd == -1)
+	{
+		g_status = 1;
+		return (-1);
+	}
 	if ((*cmd)->p_type == 1 || (*cmd)->p_type == 2)
 	{
 		flag = 1;
@@ -49,6 +54,7 @@ int	here_document(t_cmd **cmd, int fd)
 		free(str);
 	}
 	(*cmd)->word = ft_arrjoinstr((*cmd)->word, ".tmp");
+	*cmd = (*cmd)->next;
 	return (0);
 }
 
@@ -61,21 +67,20 @@ int	redir_process(t_cmd **cmd, char **envp)
 	head = *cmd;
 	flag = 0;
 	if ((*cmd)->p_type == 2)
-	{
 		here_document(cmd, set_redir_fd(cmd));
-		*cmd = (*cmd)->next;
-	}
 	while ((*cmd)->next && (*cmd)->p_type != 0)
 	{
 		flag = set_flag(cmd, &fd);
-		if (!flag && head->p_type != 2 && check_builtin(head))
+		if (!flag && head->p_type != 2 && !check_builtin(head))
 			exec_builtin(head, envp);
 		*cmd = (*cmd)->next;
 	}
-	if ((flag || head->p_type == 2) && check_builtin(head))
+	if ((flag > 0 || head->p_type == 2) && !check_builtin(head))
 		exec_builtin(head, envp);
+	if (flag == -1)
+		print_exec_err((*cmd)->word[0], NULL, 5);
 	unlink(".tmp");
-	return (0);
+	return (g_status);
 }
 
 int	pipe_redir(t_cmd **cmd, char **envp, int *fd, int n)
@@ -85,17 +90,20 @@ int	pipe_redir(t_cmd **cmd, char **envp, int *fd, int n)
 	i = 0;
 	while (*cmd)
 	{
-		if (fork() == 0)
+		if (!check_builtin(*cmd))
 		{
-			set_pipe_fd(cmd, fd, n, &i);
-			if ((*cmd)->p_type > 0)
-				redir_process(cmd, envp);
-			else if (check_builtin(*cmd))
-				g_status = exec_builtin(*cmd, envp);
-			exit(g_status);
+			if (fork() == 0)
+			{
+				set_pipe_fd(cmd, fd, n, &i);
+				if ((*cmd)->p_type > 0)
+					g_status = redir_process(cmd, envp);
+				else
+					g_status = exec_builtin(*cmd, envp);
+				exit(g_status);
+			}
 		}
-		if ((*cmd)->p_type > 0)
-			wait(&g_status);
+		else
+			print_exec_err((*cmd)->word[0], NULL, 5);
 		while ((*cmd)->p_type > 0)
 			*cmd = (*cmd)->next;
 		if ((*cmd)->p_type == 0)
@@ -104,7 +112,7 @@ int	pipe_redir(t_cmd **cmd, char **envp, int *fd, int n)
 			break ;
 		*cmd = (*cmd)->next;
 	}
-	return (g_status);
+	return (0);
 }
 
 int	exec_pipe(t_cmd **cmd, char **envp)
@@ -122,13 +130,11 @@ int	exec_pipe(t_cmd **cmd, char **envp)
 	pipe_redir(cmd, envp, fd, n);
 	while (tmp)
 	{
-		wait(&g_status);
+		wait(NULL);
 		close_all(fd, n);
-		if (tmp->next == NULL)
-			break ;
 		tmp = tmp->next;
 	}
 	if (n)
 		free(fd);
-	return (g_status);
+	return (0);
 }
