@@ -111,7 +111,8 @@ int	exec_pipe(t_cmd **cmd)
 	pipe_redir(cmd, fd, n);
 	while (tmp)
 	{
-		wait(NULL);
+		if (wait(&g_status) == -1 && check_builtin(tmp))
+			g_status = 127;
 		close_all(fd, n);
 		tmp = tmp->next;
 	}
