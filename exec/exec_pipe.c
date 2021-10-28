@@ -6,35 +6,11 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 20:06:10 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/26 20:09:50 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/28 13:26:45 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	here_document(t_cmd **cmd, int fd)
-{
-	char	*str;
-
-	while (1)
-	{
-		str = readline("heredoc> ");
-		if (strcmp(str, (*cmd)->next->word[0]) == 0)
-		{
-			if ((*cmd)->next->word[1] == NULL)
-			{
-				free(str);
-				break ;
-			}
-		}
-		write(fd, str, ft_strlen(str));
-		write(fd, "\n", 1);
-		free(str);
-	}
-	(*cmd)->word = ft_arrjoinstr((*cmd)->word, ".tmp");
-	*cmd = (*cmd)->next;
-	return (0);
-}
 
 int	redir_process(t_cmd **cmd)
 {
@@ -63,7 +39,8 @@ int	redir_process(t_cmd **cmd)
 
 void	child_process(t_cmd **cmd, int *fd, int n, int *i)
 {
-	if (fork() == 0)
+	(*cmd)->pid = fork();
+	if ((*cmd)->pid == 0)
 	{
 		set_pipe_fd(cmd, fd, n, i);
 		if ((*cmd)->p_type > 0)
@@ -71,6 +48,29 @@ void	child_process(t_cmd **cmd, int *fd, int n, int *i)
 		else
 			exec_builtin(*cmd);
 		exit(g_status);
+	}
+}
+
+void	wait_process(t_cmd *cmd, int *fd, int n)
+{
+	t_cmd	*tmp;
+
+	tmp = cmd;
+	while (tmp)
+	{
+		if (tmp->pid != -1)
+		{
+			waitpid(tmp->pid, &g_status, 0);
+			g_status = WEXITSTATUS(g_status);
+		}
+		else
+			g_status = 127;
+		while (tmp->p_type > 0)
+			tmp = tmp->next;
+		close_all(fd, n);
+		if (tmp->next == NULL)
+			break ;
+		tmp = tmp->next;
 	}
 }
 
@@ -109,15 +109,7 @@ int	exec_pipe(t_cmd **cmd)
 		pipe(fd + i * 2);
 	tmp = *cmd;
 	pipe_redir(cmd, fd, n);
-	while (tmp)
-	{
-		if (wait(&g_status) == -1 && check_builtin(tmp))
-			g_status = 127;
-		else if (g_status % 128 == 0 && g_status)
-			g_status = WIFEXITED(g_status);			
-		close_all(fd, n);
-		tmp = tmp->next;
-	}
+	wait_process(tmp, fd, n);
 	if (n)
 		free(fd);
 	return (0);

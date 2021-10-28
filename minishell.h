@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:35:53 by hynam             #+#    #+#             */
-/*   Updated: 2021/10/26 19:58:50 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/28 13:27:00 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_cmd
 	t_list			*environ;
 	int				cmd_num;
 	char			**path;
-	int				fd[2];
+	pid_t			pid;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }t_cmd;
@@ -69,7 +69,7 @@ void	remove_list(t_list *environ, char *look);
 void	clear_list(t_list **lst);
 
 /* in exec dir */
-// int		here_document(t_cmd **cmd, char **envp, int fd);
+int		here_document(t_cmd **cmd, int fd);
 int		check_builtin(t_cmd *cmd);
 int		exec_builtin(t_cmd *cmd);
 int		exec_pipe(t_cmd **cmd);

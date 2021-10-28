@@ -6,11 +6,35 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 14:34:08 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/26 19:46:13 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/28 13:26:41 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	here_document(t_cmd **cmd, int fd)
+{
+	char	*str;
+
+	while (1)
+	{
+		str = readline("heredoc> ");
+		if (strcmp(str, (*cmd)->next->word[0]) == 0)
+		{
+			if ((*cmd)->next->word[1] == NULL)
+			{
+				free(str);
+				break ;
+			}
+		}
+		write(fd, str, ft_strlen(str));
+		write(fd, "\n", 1);
+		free(str);
+	}
+	(*cmd)->word = ft_arrjoinstr((*cmd)->word, ".tmp");
+	*cmd = (*cmd)->next;
+	return (0);
+}
 
 int	check_bin(t_cmd *cmd)
 {

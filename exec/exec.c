@@ -6,7 +6,7 @@
 /*   By: hynam <hynam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 14:40:48 by minchoi           #+#    #+#             */
-/*   Updated: 2021/10/26 19:58:35 by hynam            ###   ########.fr       */
+/*   Updated: 2021/10/28 12:56:21 by hynam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int	ft_bin_child(char *path, t_cmd *cmd)
 	if (pid == 0)
 		execve(path, cmd->word, NULL);
 	waitpid(pid, &g_status, 0);
-	if (g_status)
-		g_status = WIFEXITED(g_status);
-	if (g_status == 2 || g_status == 3)
-		g_status += 128;
+	if (WIFSIGNALED(g_status))
+		g_status = 128 + WTERMSIG(g_status);
+	else
+		g_status = WEXITSTATUS(g_status);
 	return (0);
 }
 
