@@ -40,7 +40,7 @@ int	ft_echo(t_cmd *cmd)
 	n_flag = 0;
 	if (cmd->cmd_num == 0)
 		return (0);
-	if (cmd->cmd_num > 1)
+	if (cmd->word[1] != NULL)
 		if (check_option_n(cmd->word, &n_flag))
 			i++;
 	while (cmd->word[i])

@@ -67,7 +67,7 @@ void	align_word(t_cmd **cmd, char **split)
 		(*cmd)->word = (char **)malloc(sizeof(char *) * ((*cmd)->cmd_num + 1));
 		while (i < (*cmd)->cmd_num && split[j])
 		{
-			if (is_pipe(split[j]) != -1)
+			if (!(*cmd)->quote && is_pipe(split[j]) != -1)
 				j++;
 			else
 				(*cmd)->word[i++] = set_word(cmd, split[j++]);
@@ -84,7 +84,7 @@ int	check_pipe(t_cmd **cmd, t_list *l_env, char **split)
 	int	i;
 	int	type;
 
-	if (check_syntax(split))
+	if (!(*cmd)->quote && check_syntax(split))
 	{
 		g_status = 2;
 		ft_free(split);

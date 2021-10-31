@@ -22,7 +22,10 @@ void	init_data(t_cmd	*cmd, t_list *l_env)
 	cmd->next = NULL;
 	cmd->prev = NULL;
 	cmd->environ = l_env;
-	cmd->path = ft_split(find_env_value("PATH", cmd->environ), ':');
+	if (find_env("PATH", cmd->environ) != NULL)
+		cmd->path = ft_split(find_env_value("PATH", cmd->environ), ':');
+	else
+		cmd->path = ft_split("", ':');
 }
 
 t_list	*pre_process(char **envp)

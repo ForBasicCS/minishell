@@ -17,10 +17,18 @@ int	ft_exit(t_cmd *cmd)
 	int	n;
 
 	n = 0;
-	if (cmd->cmd_num != 1)
+	if (cmd->cmd_num > 2)
 	{
 		printf("%s: too many arguments\n", cmd->word[0]);
 		g_status = 2;
+		return (0);
+	}
+	else if (cmd->cmd_num == 2)
+	{
+		if (ft_atoi(cmd->word[1], &n) != -1)
+			g_status = n % 256;
+		else
+			g_status = 255;
 	}
 	printf("Minishell will be over\n");
 	return (1);
