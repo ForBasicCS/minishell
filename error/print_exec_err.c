@@ -17,13 +17,15 @@ int	print_exec_err(char *ins, char *arg, int err_flag)
 	if (err_flag > 0)
 	{
 		if (err_flag == 1)
-			printf("%s: %s: %s\n", ins, strerror(errno), arg);
+			printf("%s: %s: %s\n", ins, arg, strerror(errno));
 		else if (err_flag == 2)
 			printf("%s: not an identifier: %s\n", ins, arg);
 		else if (err_flag == 3)
 			printf("%s: not enough arguments\n", ins);
 		else if (err_flag == 4)
 			printf("%s: %s: invalid parameter name\n", ins, arg);
+		else if (err_flag == 5)
+			printf("%s: HOME not set\n", ins);
 		else
 		{
 			printf("command not found: %s\n", ins);

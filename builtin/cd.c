@@ -35,16 +35,10 @@ static int	cd_home(t_cmd *cmd, char *path)
 	struct stat	s;
 
 	new_path = find_env_value("HOME", cmd->environ);
-	if (ft_strncmp(path, "~", ft_strlen(path)) == 0)
-		new_path = make_path(new_path, NULL);
-	else
-		new_path = make_path(new_path, path + 1);
-	if (new_path == NULL)
-		return (0);
 	if (stat(new_path, &s) == 0 && find_env("OLDPWD", cmd->environ) != NULL)
 		update_pwd(cmd, "OLDPWD");
 	if (chdir(new_path) == -1)
-		return (print_exec_err(cmd->word[0], path + 1, 1));
+		return (print_exec_err(cmd->word[0], path, 5));
 	return (0);
 }
 
