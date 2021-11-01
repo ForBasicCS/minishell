@@ -50,7 +50,7 @@ int	ft_cd(t_cmd *cmd)
 
 	ret = 0;
 	path = cmd->word[1];
-	if (path == NULL || ft_strcmp(path, "~") == 0)
+	if ((path == NULL || ft_strcmp(path, "~") == 0) && !cmd->quote)
 		ret = cd_home(cmd, path);
 	else
 	{
