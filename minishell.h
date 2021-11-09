@@ -95,7 +95,7 @@ char	*front_of_env(char *path, int dollar_sign);
 void	none_ctrl_d(void);
 void	set_signal(void);
 char	**ft_arrjoinstr(char **s1, char *s2);
-void	ft_strcpy_trim(char *dest, char *s1, char *s2, char trim);
+void	ft_strcpy_trim(char *dest, char trim);
 int		is_pipe(char *str);
 int		is_valid(char *str);
 int		check_syntax(char **split);

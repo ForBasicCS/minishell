@@ -43,6 +43,8 @@ char	*set_word(t_cmd **cmd, char *split)
 	if (ft_strchr(split, '$') && (*cmd)->quote != '\'')
 	{
 		dollar = ft_strchr(split, '$') - split;
+		if (split[dollar + 1] == 0 || split[dollar + 1] == ' ')
+			return (ft_strdup(split));
 		new_word = find_env_value(split + dollar + 1, (*cmd)->environ);
 		if (dollar != 0)
 			tmp = front_of_env(split, dollar);
@@ -60,6 +62,9 @@ void	align_word(t_cmd **cmd, char **split)
 	int	i;
 	int	j;
 
+	j = -1;
+	while (split[++j] != NULL)
+		ft_strcpy_trim(split[j], (*cmd)->quote);
 	j = 0;
 	while (*cmd)
 	{
@@ -95,7 +100,7 @@ int	check_pipe(t_cmd **cmd, t_list *l_env, char **split)
 	{
 		(*cmd)->cmd_num++;
 		type = is_pipe(split[i]);
-		if (type != -1 && !(*cmd)->quote)
+		if (type != -1)
 		{
 			(*cmd)->cmd_num--;
 			(*cmd)->p_type = type;
@@ -124,7 +129,7 @@ int	parsing(t_cmd **cmd, t_list *l_env, char *str)
 			tmp = str;
 			str = end_point(cmd, str);
 			split[c] = (char *)malloc((str - tmp) + 1);
-			ft_strcpy_trim(split[c++], tmp, str, (*cmd)->quote);
+			ft_strlcpy(split[c++], tmp, str - tmp + 1);
 		}
 		else
 			str++;

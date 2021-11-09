@@ -25,14 +25,12 @@ int	redir_process(t_cmd **cmd)
 	while ((*cmd)->next && (*cmd)->p_type != 0)
 	{
 		flag = set_flag(cmd, &fd);
-		if (!flag && head->p_type != 2 && !check_builtin(head))
-			exec_builtin(head);
 		*cmd = (*cmd)->next;
 	}
-	if ((flag > 0 || head->p_type == 2) && !check_builtin(head))
+	if (!check_builtin(head))
 		exec_builtin(head);
 	if (flag == -1)
-		print_exec_err((*cmd)->word[0], NULL, 5);
+		print_exec_err((*cmd)->word[0], NULL, 6);
 	unlink(".tmp");
 	return (g_status);
 }
@@ -84,7 +82,7 @@ int	pipe_redir(t_cmd **cmd, int *fd, int n)
 		if (!check_builtin(*cmd))
 			child_process(cmd, fd, n, &i);
 		else
-			print_exec_err((*cmd)->word[0], NULL, 5);
+			print_exec_err((*cmd)->word[0], NULL, 6);
 		while ((*cmd)->p_type > 0)
 			*cmd = (*cmd)->next;
 		if ((*cmd)->p_type == 0)

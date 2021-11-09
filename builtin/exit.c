@@ -20,7 +20,7 @@ int	ft_exit(t_cmd *cmd)
 	if (cmd->cmd_num > 2)
 	{
 		printf("%s: too many arguments\n", cmd->word[0]);
-		g_status = 2;
+		g_status = 1;
 		return (0);
 	}
 	else if (cmd->cmd_num == 2)

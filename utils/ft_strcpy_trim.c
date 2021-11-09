@@ -12,18 +12,22 @@
 
 #include "minishell.h"
 
-void	ft_strcpy_trim(char *dest, char *s1, char *s2, char trim)
+void	ft_strcpy_trim(char *dest, char trim)
 {
-	while (s1 < s2)
+	char	*tmp;
+	int		i;
+
+	tmp = ft_strdup(dest);
+	i = 0;
+	while (tmp[i] != 0)
 	{
-		if (*s1 == trim)
-			s1++;
-		else
+		if (tmp[i] != trim)
 		{
-			*dest = *s1;
+			*dest = tmp[i];
 			dest++;
-			s1++;
 		}
+		i++;
 	}
 	*dest = 0;
+	free(tmp);
 }

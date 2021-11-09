@@ -91,7 +91,7 @@ int	exec_cmd(t_cmd **cmd)
 			if (!check_builtin(*cmd))
 				ret = exec_builtin(*cmd);
 			else
-				print_exec_err((*cmd)->word[0], NULL, 5);
+				print_exec_err((*cmd)->word[0], NULL, 6);
 		}
 		else
 			ret = exec_pipe(cmd);
